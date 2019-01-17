@@ -3,7 +3,7 @@ import React from 'react';
 const TermsPage = () => (
   <div>
   <header className="bg-gradient" id="terms">
-    <div className="container mt-5">
+    <div className="container mt-5 transparent">
         <h1>Terms and Conditions</h1>
         <p className="tagline small">Last updated on: 26-11-2018</p>
     </div>

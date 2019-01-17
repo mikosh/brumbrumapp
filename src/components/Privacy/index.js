@@ -3,7 +3,7 @@ import React from 'react';
 const PrivacyPage = () => (
   <div>
   <header className="bg-gradient" id="privacy">
-    <div className="container mt-5">
+    <div className="container mt-5 transparent">
         <h1>Privacy Policy</h1>
         <p className="tagline small">Last updated on: 26-11-2018</p>
     </div>

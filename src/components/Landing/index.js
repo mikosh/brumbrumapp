@@ -27,7 +27,7 @@ const Landing = () => (
 
   <div>
   <header className="bg-gradient" id="home">
-    <div className="container mt-5">
+    <div className="container mt-5 transparent">
         <h1>Share your journey</h1>
         <p className="tagline">By having more people using one vehicle, carpooling reduces each person’s travel costs such as fuel costs, tolls, and the stress of driving. Sharing your journeys is also a more environmentally friendly and sustainable way to travel as it reduces carbon emissions, traffic congestion on the roads, and the need for parking spaces.</p>
         <hr/>
@@ -37,7 +37,6 @@ const Landing = () => (
         </a>
         </span><span> or </span>
         <span><Link className="btn-lg btn btn-warning btn-web" to={ROUTES.SIGN_IN}>Web Login</Link></span>
-
     </div>
     <div className="img-holder mt-3"> <img src={iphoneX} alt="phone" className="img-fluid" /></div>
   </header>
@@ -195,10 +194,10 @@ const Landing = () => (
   </div>
   <div className="section bg-gradient">
     <div className="container">
-        <div className="call-to-action">
+        <div className="call-to-action transparent">
             <div className="box-icon"><FaMobileAlt /></div>
             <h2>Download Anywhere</h2>
-            <p className="tagline">Available for all iOS devices.</p>
+            <p>Available for all iOS devices.</p>
             <div className="my-4">
                 <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8">
                     <img src={appStoreUK} alt="appStore"/>
