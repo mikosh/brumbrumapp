@@ -51,7 +51,7 @@ class TripViewBase extends Component {
       });
 
       var distance = require('google-distance-matrix');
-      distance.key('AIzaSyAZT2vJxlL6IcVGhJJEBBdyt7w8umi8DMs');
+      distance.key('AIzaSyCL8v5_VKP3NhJ9UyNwd25pON3Etk1I-1o');
       const origin = trip.startLat + ',' + trip.startLon;
       const dest = trip.endLat + ',' + trip.endLon;
       var origins = [origin];
