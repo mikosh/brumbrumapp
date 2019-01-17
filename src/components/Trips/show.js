@@ -50,30 +50,33 @@ class TripViewBase extends Component {
           console.log("Error getting conversations:", error);
       });
 
-      var distance = require('google-distance-matrix');
-      distance.key('AIzaSyCL8v5_VKP3NhJ9UyNwd25pON3Etk1I-1o');
       const origin = trip.startLat + ',' + trip.startLon;
       const dest = trip.endLat + ',' + trip.endLon;
       var origins = [origin];
       var destinations = [dest];
 
-      distance.matrix(origins, destinations, function (err, distances) {
-        if (err) {
-          return console.log(err);
-        }
-        if(!distances) {
-            return console.log('no distances');
-        }
-        if (distances.status === 'OK') {
-          if (distances.rows[0].elements[0].status === 'OK') {
-            trip.distance = distances.rows[0].elements[0].distance.text;
-            trip.duration = distances.rows[0].elements[0].duration.text;
+      var service = new window.google.maps.DistanceMatrixService();
+
+      service.getDistanceMatrix({
+        origins: origins,
+          destinations: destinations,
+          travelMode: 'DRIVING',
+          unitSystem: window.google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, (response, status) => {
+
+          if (status === 'OK') {
+            if (response.rows[0].elements[0].status === 'OK') {
+              trip.distance = response.rows[0].elements[0].distance.text;
+              trip.duration = response.rows[0].elements[0].duration.text;
+            }
+          } else{
+            alert('Error was: ' + status);
+            trip.distance = "not calculated";
+            trip.duration = "not calculated";
           }
-        } else{
-          trip.distance = "not calculated";
-          trip.duration = "not calculated";
-        }
-      });
+        });
 
       this.setState({
         trip,

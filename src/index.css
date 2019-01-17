@@ -742,4 +742,31 @@ header {
 a.brum-link {
   color: #337ab7;
 }
-a.nav-link:hover{ cursor:pointer}
+a.nav-link:hover{
+  cursor:pointer
+}
+
+@media screen and (min-width: 768px) {
+  .list-group-item h5 {
+    font-size: 1.25rem;
+  }
+  .list-group-item p {
+    font-size: 100%;
+  }
+  small {
+    font-size: 80%;
+  }
+}
+
+/* If the screen size is 767px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 767px) {
+  .list-group-item h5 {
+    font-size: 1rem;
+  }
+  .list-group-item p {
+    font-size: 80%;
+  }
+  .list-group-item small {
+    font-size: 60%;
+  }
+}

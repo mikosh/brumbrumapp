@@ -75,7 +75,7 @@ const TripsList = ({ trips }) => (
           <h5>{trip.price} {trip.currency}</h5>
         </div>
         <p className="mb-1">{trip.startCity} - {trip.endCity}</p>
-        <small><Moment>{new Date(trip.leaveDate.seconds * 1000).toISOString()}</Moment></small>
+        <small><Moment format="dddd, MMM Do, hh:mm">{new Date(trip.leaveDate.seconds * 1000).toISOString()}</Moment></small>
       </Link>
     ))}
   </div>

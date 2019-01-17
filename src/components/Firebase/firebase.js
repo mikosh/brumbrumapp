@@ -35,8 +35,6 @@ class Firebase {
               querySnapshot.forEach((doc) => {
                   const userProfile = doc.data();
                   userProfile.id = doc.id;
-                  console.log(doc.id, " => ", doc.data());
-
                   // merge auth and db user profile
                   authUser = {
                     uid: authUser.uid,

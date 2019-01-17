@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as ROUTES from '../../constants/routes';
 import { withAuthorization } from '../Session';
 import './material_green.css'
 
@@ -135,7 +134,7 @@ class EditTrip extends Component {
         <div className="panel-body">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <div className="form-control">From: <strong>{startAddress}, {endCity}</strong></div>
+              <div className="form-control">From: <strong>{startAddress}, {startCity}</strong></div>
             </div>
             <div className="form-group">
               <div className="form-control">To: <strong>{endAddress}, {endCity}</strong></div>

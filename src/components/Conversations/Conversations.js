@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { withAuthorization, withEmailVerification } from '../Session';
-import Moment from 'react-moment';
+
 import { compose } from 'recompose';
-import profile from '../../assets/profile.png';
 import ConversationList from './ConversationList';
 
 
