@@ -11,7 +11,6 @@ import screen4 from '../../assets/images/screen4.png';
 import screen5 from '../../assets/images/screen5.png';
 import iphonexlogin from '../../assets/images/iphonexlogin.png';
 import appStoreUK from '../../assets/images/appStoreUK.svg';
-import appStoreBG from '../../assets/images/appStoreBG.svg';
 import { FaFacebookSquare, FaInstagram, FaMobileAlt, FaRocket, FaCar, FaLeaf, FaPiggyBank, FaUserFriends, FaPhoneVolume, FaMapMarkerAlt, FaRegEnvelope } from "react-icons/fa";
 import Slider from "react-slick";
 var settings = {
@@ -34,7 +33,7 @@ const Landing = () => (
         <hr/>
         <span>
         <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8">
-            <img src={appStoreUK} />
+            <img src={appStoreUK} alt="appStore" />
         </a>
         </span><span> or </span>
         <span><Link className="btn-lg btn btn-warning btn-web" to={ROUTES.SIGN_IN}>Web Login</Link></span>
@@ -111,7 +110,7 @@ const Landing = () => (
                 <div className="box-icon"><FaMobileAlt/></div>
                 <h2>Discover our mobile app</h2>
                 <p className="mb-4">BrumBrum connects drivers with free seats and people travelling the same way. The BrumBrum app is currently available for iOS devices.</p>
-                <a href="#" className="btn btn-primary btn-brum">Download now</a>
+                <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8" className="btn btn-primary btn-brum">Download now</a>
             </div>
         </div>
         <div className="perspective-phone">
@@ -202,7 +201,7 @@ const Landing = () => (
             <p className="tagline">Available for all iOS devices.</p>
             <div className="my-4">
                 <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8">
-                    <img src={appStoreUK} />
+                    <img src={appStoreUK} alt="appStore"/>
                 </a>
             </div>
             <small><i>*Works on iOS 11.0 and above.</i></small>
@@ -230,7 +229,7 @@ const Landing = () => (
                 <div className="social-icons">
                     <a href="https://www.facebook.com/brumbrumapp/" title="BrumBrum on Facebook"><FaFacebookSquare /></a>
                     <span> </span>
-                    <a href="#" title="BrumBrum on Instagram"><FaInstagram /></a>
+                    <a href="https://www.instagram.com/brumbrumapp/" title="BrumBrum on Instagram"><FaInstagram /></a>
                 </div>
             </div>
         </div>

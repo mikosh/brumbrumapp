@@ -135,7 +135,7 @@ class MessagesPage extends Component {
                       <div className={authUser.uid === message.senderID? "" : "received_withd_msg" }>
                         <small>{message.senderName}</small>
                         <p>{message.content}</p>
-                        <span className="time_date"><Moment>{new Date(message.created.seconds * 1000).toISOString()}</Moment></span>
+                        <span className="time_date"><Moment format="MMM DD, HH:mm">{new Date(message.created.seconds * 1000).toISOString()}</Moment></span>
                       </div>
                     </div>
                   </div>
@@ -147,12 +147,19 @@ class MessagesPage extends Component {
         <nav className="navbar fixed-bottom bg-dark navbar-dark">
           <form onSubmit={ this.onSubmit } className="msg-input-form">
             <div className="form-group container">
-                <input className="form-control width80"
+
+              <div class="input-group">
+                <input className="form-control"
                   type="text" placeholder="Type a message"
                   value={content}
                   onChange={this.onChangeText}
                 />
-                <button className="msg_send_btn" type="submit"><FaRegPaperPlane/></button>
+                <span class="input-group-btn">
+                  <button className="btn btn-primary btn-brum msg_send_btn" type="submit"><FaRegPaperPlane/></button>
+                </span>
+              </div>
+
+
             </div>
           </form>
         </nav>

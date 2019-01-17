@@ -206,14 +206,8 @@ code {
 .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
 
 .msg_send_btn {
-  background: #337ab7 none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  height: 50px;
-  width: 50px;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }
 .msg-input-form {
   padding-top: 10px;
@@ -758,6 +752,9 @@ a.nav-link:hover{
   }
 }
 
+.section-terms p {
+  color: #000000;
+}
 /* If the screen size is 767px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
   .list-group-item h5 {

@@ -177,7 +177,7 @@ class TripViewBase extends Component {
           {!loading && trip &&
 
               <ul className="list-group">
-                <li className="list-group-item active-brum"><center><h3><Moment format="dddd, MMMM Do, hh:mm">{trip.leaveDateConverted}</Moment></h3></center></li>
+                <li className="list-group-item active-brum"><center><h3><Moment format="dddd, MMMM Do, HH:mm">{trip.leaveDateConverted}</Moment></h3></center></li>
                 <li className="list-group-item"><img src={startPin} alt="startPin" className="image-fluid logo"/><span className="list-span font-weight-bold">{trip.startAddress}, {trip.startCity}</span></li>
                 <li className="list-group-item"><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span">Distance: {trip.distance}</span></li>
                 <li className="list-group-item"><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span">Estimated time: {trip.duration}</span></li>
