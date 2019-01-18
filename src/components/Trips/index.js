@@ -31,7 +31,7 @@ class TripsPage extends Component {
       tripsObject.id = doc.id;
       trips.push(tripsObject);
     });
-    //trips = trips.filter(this.filterByDate);
+    trips = trips.filter(this.filterByDate);
 
     trips.sort((a,b) => {
       var c = new Date(a.leaveDate.seconds * 1000);
