@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 import { Link } from 'react-router-dom';
 import { withAuthorization, withEmailVerification } from '../Session';
 import Moment from 'react-moment';
+//import 'moment/locale/bg';
 import profile from '../../assets/profile.png';
 
 class TripsPage extends Component {

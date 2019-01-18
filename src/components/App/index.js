@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { LocalizeProvider } from "react-localize-redux";
 
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
@@ -21,6 +22,7 @@ import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
 const App = () => (
+      <LocalizeProvider>
         <Router>
           <div>
             <Navigation />
@@ -46,6 +48,7 @@ const App = () => (
             </main>
           </div>
         </Router>
+      </LocalizeProvider>
 );
 
 

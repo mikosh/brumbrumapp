@@ -778,3 +778,16 @@ a.nav-link:hover{
     font-size: 60%;
   }
 }
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.link-button:hover,
+.link-button:focus {
+  text-decoration: none;
+
+}

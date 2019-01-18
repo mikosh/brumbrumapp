@@ -1,0 +1,30 @@
+{
+  "brumbrum": [
+    "BrumBrum",
+    "БръмБръм"
+  ],
+  "login_btn": [
+    "Login",
+    "Вход"
+  ],
+  "logout_btn": [
+    "Logout",
+    "Изход"
+  ],
+  "terms_btn": [
+    "Terms",
+    "Условия"
+  ],
+  "privacy_btn": [
+    "Privacy",
+    "Поверителност"
+  ],
+  "home_btn": [
+    "Home",
+    "Начало"
+  ],
+  "language": [
+    "Language",
+    "Език"
+  ]
+}
