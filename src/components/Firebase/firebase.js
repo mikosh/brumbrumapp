@@ -82,6 +82,7 @@ class Firebase {
 
   trips = () => this.db.collection('trips');
 
+
   // *** Profile API ***
 
   profile = id => this.db.collection('profiles').doc(id);

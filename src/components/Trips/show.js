@@ -9,19 +9,25 @@ import startPin from '../../assets/startPin.png';
 import strip from '../../assets/strip.png';
 import profile from '../../assets/profile.png';
 import Popup from "reactjs-popup";
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 const TripViewPage = () => (
   <TripView />
 );
 
+const INITIAL_STATE = {
+  loading: false,
+  trip: {},
+  profileDriver: null,
+  profileVisitor: null,
+}
+
 class TripViewBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      trip: {},
-      profileDriver: null,
-      profileVisitor: null,
+      ...INITIAL_STATE
     };
   }
 
@@ -165,9 +171,24 @@ class TripViewBase extends Component {
     });
   }
 
+  onDelete = (e) => {
+    e.preventDefault();
+    const { trip } = this.state;
+    const updateRef = this.props.firebase.trip(trip.id);
+    updateRef.update({
+      deleted: true
+    }).then((docRef) => {
+      this.setState({ ...INITIAL_STATE });
+      this.props.history.push(ROUTES.TRIPS)
+    })
+    .catch((error) => {
+      console.error("Error editing document: ", error);
+    });
+  }
+
   render() {
     const { loading, trip, profileDriver } = this.state;
-
+    const driverId = profileDriver && profileDriver.userId
     const isDisabled = profileDriver && profileDriver.phone === '' && profileDriver.phoneCode === '';
     const phone = profileDriver && (profileDriver.phoneCode + profileDriver.phone)
     return (
@@ -191,25 +212,57 @@ class TripViewBase extends Component {
                 <li className="list-group-item"><span className="list-span">Smoking allowed: </span><span className="list-span font-weight-bold">{trip.smokingAllowed? "Yes":"No"}</span></li>
                 <li className="list-group-item"><span className="list-span">Trip description: </span><span className="list-span font-weight-lighter">{trip.description}</span></li>
                 <li className="list-group-item">
-                  <center>
-                    <button className="btn btn-primary btn-brum" onClick={this.createConversation}>
-                      Message
-                      </button>
 
-                    <span className="list-span"/>
+                  <AuthUserContext.Consumer>
+                    {authUser =>
+                      (driverId && authUser.uid !== driverId) ?
+                        <center>
+                        <button className="btn btn-primary btn-brum" onClick={this.createConversation}>
+                          Message
+                        </button>
+                        <span className="list-span"/>
+                        <Popup trigger={<button className="btn btn-primary btn-brum" disabled={isDisabled}>Call</button>} position="top">
+                          {close => (
+                          <div>
+                            <button className="close" onClick={close}>
+                              &times;
+                            </button>
+                            <div>
+                             <br/>
+                              <p> {trip.driverName} number: {phone}</p>
+                              <hr/>
+                              <small>Use the call button on mobile.</small>
+                              <br/>
+                              <a className="btn btn-success"  href={"tel:"+ phone }>Call {phone}</a>
+                              <br/>
+                            </div>
+                          </div>
+                          )}
+                        </Popup>
+                        </center>
+                        : (driverId && authUser.uid === driverId) ?
+                          <center>
+                            <Link className="btn btn-primary btn-brum" to={`/edit_trip/${trip.id}`} >Edit</Link>
+                            <span className="list-span"/>
+                            <Popup trigger={<button className="btn btn-primary btn-brum">Delete</button>} position="top">
+                              {close => (
+                                <div>
+                                <button className="close" onClick={close}>
+                                  &times;
+                                </button>
+                                <div style={{padding: "0 20px"}}>
+                                  <br/>
+                                  <p>Are you sure you want to delete your trip?</p>
+                                  <button className="btn btn-success" onClick={this.onDelete}>Delete</button>
+                                </div>
+                                </div>
+                              )}
+                            </Popup>
+                          </center>
+                          : ""
+                      }
+                    </AuthUserContext.Consumer>
 
-                    <Popup trigger={<button className="btn btn-primary btn-brum" disabled={isDisabled}>Call</button>} modal>
-                      <div>
-                       <br/>
-                        <p> {trip.driverName} number: {phone}</p>
-                        <hr/>
-                        <small>Use the call button on mobile.</small>
-                        <br/>
-                        <a className="btn btn-success"  href={"tel:"+ phone }>Call {phone}</a>
-                        <br/>
-                      </div>
-                    </Popup>
-                    </center>
                 </li>
               </ul>
 
