@@ -19,7 +19,7 @@ class TripsPage extends Component {
     const leaveTime = item.leaveDate.seconds *1e3;
     const returnTime = item.returnDate.seconds * 1e3;
     const now = new Date().getTime();
-    if ((!item.roundtrip && leaveTime >= now) || (item.roundtrip && returnTime >= now)) {
+    if ((!item.roundTrip && leaveTime >= now) || (item.roundTrip && returnTime >= now)) {
       return true;
     }
     return false;
@@ -30,6 +30,8 @@ class TripsPage extends Component {
     querySnapshot.forEach((doc) => {
       const tripsObject = doc.data();
       tripsObject.id = doc.id;
+      tripsObject.leaveDateFormated = new Date(tripsObject.leaveDate.seconds * 1000).toISOString();
+      tripsObject.returnDateFormated = new Date(tripsObject.returnDate.seconds * 1000).toISOString();
       trips.push(tripsObject);
     });
     trips = trips.filter(this.filterByDate);
@@ -39,6 +41,7 @@ class TripsPage extends Component {
       var d = new Date(b.leaveDate.seconds * 1000);
       return c-d;
     });
+
     this.setState({
       loading: false,
       trips
@@ -75,8 +78,16 @@ const TripsList = ({ trips }) => (
           <span> {trip.driverName}, {trip.driverAge}</span></h5>
           <h5>{trip.price} {trip.currency}</h5>
         </div>
-        <p className="mb-1">{trip.startCity} - {trip.endCity}</p>
-        <small><Moment format="dddd, MMM Do, hh:mm">{new Date(trip.leaveDate.seconds * 1000).toISOString()}</Moment></small>
+        <p className="mb-1">{trip.startCity} - {(trip.roundTrip)? trip.endCity + " - " + trip.startCity : trip.endCity}</p>
+        {(trip.roundTrip) ?
+          <small>
+            <Moment format="ddd, MMM Do, hh:mm">{trip.leaveDateFormated}</Moment>
+            <span> - </span>
+            <Moment format="ddd, MMM Do, hh:mm">{trip.returnDateFormated}</Moment>
+          </small>
+          :
+          <small><Moment format="ddd, MMM Do, hh:mm">{trip.leaveDateFormated}</Moment></small>
+        }
       </Link>
     ))}
   </div>
