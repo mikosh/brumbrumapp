@@ -155,22 +155,20 @@ class TripsPage extends Component {
 
 const Search = ({setStartLocation, setEndLocation,  onSearchSubmit, searchActive, onRemoveFilter}) => (
   <form className="form-inline" onSubmit={onSearchSubmit}>
-    <div className="form-group mb-3">
-      <div className="input-group-prepend">
-        <span className="input-group-text">From:</span>
-      </div>
-      <LocationSearchInput setLocation={setStartLocation} text= "From" placeholder="Select start address" />
+    <div className="form-group mb-2 mr-2">
+      <LocationSearchInput setLocation={setStartLocation} text= "From" placeholder="From" />
     </div>
-    <div className="form-group mx-sm-3 mb-3">
-      <div className="input-group-prepend">
-        <span className="input-group-text">To:</span>
-      </div>
-      <LocationSearchInput setLocation={setEndLocation} placeholder="Select end address" />
+    <div className="form-group mb-2 mr-2">
+      <LocationSearchInput setLocation={setEndLocation} placeholder="To" />
     </div>
-    <button type="submit" className="btn btn-primary btn-brum mb-3">Search</button>
+    <div className="form-group mb-2 mr-2">
+      <button type="submit" className="btn btn-primary btn-brum form-control">Search</button>
+    </div>
     {
       (searchActive) ?
-        <button type="button" className="btn btn-warning mb-3 ml-2" onClick={onRemoveFilter}>Remove filter</button>
+        <div className="form-group mb-2">
+        <button type="button" className="btn btn-warning form-control" onClick={onRemoveFilter}>Remove filter</button>
+        </div>
       : ""
     }
   </form>
