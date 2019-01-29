@@ -49,7 +49,7 @@ class Landing extends Component {
             <hr/>
             <span>
             <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8">
-                <img src={((localStorage.getItem("lang") || this.props.languages[0].code) === "en") ? appStoreUK : appStoreBG} alt="appStore" />
+                <img src={((localStorage.getItem("lang") || "en") === "en") ? appStoreUK : appStoreBG} alt="appStore" />
             </a>
             </span><span> <Translate id="web" /> </span>
             <span><Link className="btn-lg btn btn-warning btn-web" to={ROUTES.SIGN_IN}><Translate id="webLogin"/></Link></span>
@@ -216,7 +216,7 @@ class Landing extends Component {
                 <p><Translate id="downloadDesc" /></p>
                 <div className="my-4">
                     <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8">
-                        <img src={((localStorage.getItem("lang") || this.props.languages[0].code) === "en") ? appStoreUK : appStoreBG} alt="appStore"/>
+                        <img src={((localStorage.getItem("lang") || "en") === "en") ? appStoreUK : appStoreBG} alt="appStore"/>
                     </a>
                 </div>
                 <small><i><Translate id="downloadNote" /></i></small>
