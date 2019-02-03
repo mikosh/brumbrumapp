@@ -22,9 +22,9 @@ class Firebase {
     this.db = app.firestore();
     this.storage = app.storage();
 
-    this.db.settings({
-      timestampsInSnapshots: true
-    });
+    //this.db.settings({
+    //  timestampsInSnapshots: true
+    //});
   }
 
   onAuthUserListener = (next, fallback) =>

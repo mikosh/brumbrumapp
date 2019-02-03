@@ -14,6 +14,8 @@ class AccountPage extends Component {
       loading: false,
       url: '',
       name: '',
+      firstName: '',
+      lastName: '',
       age: '',
       car: '',
       gender: '',
@@ -28,7 +30,6 @@ class AccountPage extends Component {
 
   onChange = (e) => {
     const state = this.state;
-    console.log("Print: ", e.target.name);
     state[e.target.name] = e.target.value;
     this.setState(state);
   }
@@ -38,13 +39,14 @@ class AccountPage extends Component {
     querySnapshot.forEach((doc) => {
       profile = doc.data();
       this.setState({key: doc.id});
-      console.log(profile);
       return;
     });
     if (profile) {
       this.setState({
-        url: profile.url,
+        url: profile.url? profile.url : '',
         name: profile.name,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
         age: profile.age,
         car: profile.car,
         gender: profile.gender,
@@ -59,11 +61,11 @@ class AccountPage extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { name, age, gender, car, location, phone, phoneCode, url } = this.state;
-
+    const { firstName, lastName, age, gender, car, location, phone, phoneCode, url } = this.state;
+    const name = firstName + " " + lastName
     const updateRef = this.props.firebase.profile(this.state.key);
     updateRef.update({
-      name, age, gender, car, location, phone, phoneCode, url
+      name, firstName, lastName, age, gender, car, location, phone, phoneCode, url
     }).then((docRef) => {
 
     })
@@ -109,7 +111,7 @@ class AccountPage extends Component {
   }
 
   render () {
-    const { url, name, age, location, car, phone, phoneCode, gender } = this.state;
+    const { url, firstName, lastName, age, location, car, phone, phoneCode, gender } = this.state;
     return (
       <div className="container">
       <div className="row justify-content-md-center page">
@@ -146,11 +148,18 @@ class AccountPage extends Component {
                     <span className="input-group-text" id="inputGroup-sizing-default">Name</span>
                     </div>
                     <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                      name="name" value={name} onChange={this.onChange}/>
+                      name="firstName" value={firstName} onChange={this.onChange}/>
                 </div>
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Sex</span>
+                    <span className="input-group-text" id="inputGroup-sizing-default">Surname</span>
+                    </div>
+                    <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                      name="lastName" value={lastName} onChange={this.onChange}/>
+                </div>
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Gender</span>
                   </div>
                   <select name="gender" onChange={this.onChange} value={gender} className="form-control" >
                     <option value="male">Male</option>
@@ -186,9 +195,14 @@ class AccountPage extends Component {
                         <option value="+32">BE (+32)</option>
                         <option value="+41">CH (+41)</option>
                         <option value="+49">DE (+49)</option>
+                        <option value="+33">FR (+33)</option>
+                        <option value="+30">GR (+30)</option>
+                        <option value="+38">ES (+38)</option>
+                        <option value="+36">HU (+36)</option>
+                        <option value="+39">IT (+39)</option>
+                        <option value="+40">RO (+40)</option>
                         <option value="+44">UK (+44)</option>
                       </select>
-
                   </div>
                   <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
                       name="phone" value={phone} onChange={this.onChange} placeholder="Enter phone number"/>
