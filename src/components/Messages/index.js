@@ -148,13 +148,13 @@ class MessagesPage extends Component {
           <form onSubmit={ this.onSubmit } className="msg-input-form">
             <div className="form-group container">
 
-              <div class="input-group">
+              <div className="input-group">
                 <input className="form-control"
                   type="text" placeholder="Type a message"
                   value={content}
                   onChange={this.onChangeText}
                 />
-                <span class="input-group-btn">
+                <span className="input-group-btn">
                   <button className="btn btn-primary btn-brum msg_send_btn" type="submit"><FaRegPaperPlane/></button>
                 </span>
               </div>

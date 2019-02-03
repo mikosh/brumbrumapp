@@ -114,7 +114,7 @@ class SignUpFormBase extends Component {
             value={lastName}
             onChange={this.onChange}
             type="text"
-            placeholder="Last Name"
+            placeholder="Surname"
           />
         </div>
         <div className="form-group input-group mb-3">

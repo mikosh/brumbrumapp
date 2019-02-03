@@ -32,7 +32,7 @@ class ConversationList extends Component {
               <h5 className="mb-1">
               <img src={authUser.uid === c.sender? (c.recipientUrl? c.recipientUrl : profile) : (c.senderUrl? c.senderUrl : profile)} alt="Avatar" className="avatar"/>
               <span> {authUser.uid === c.sender? c.recipientName :  c.senderName}</span></h5>
-              <small><Moment format="MMM DD, HH:mm">{new Date(c.updated.seconds * 1000).toISOString()}</Moment></small>
+              <small><Moment format="MMM DD, HH:mm">{c.updated.toDate().toISOString()}</Moment></small>
             </div>
             <p className="mb-1">{c.lastMessage}</p>
           </Link>

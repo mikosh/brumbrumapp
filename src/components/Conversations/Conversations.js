@@ -24,8 +24,8 @@ class Conversations extends Component {
       conversations.push(conversationsObject);
     });
     conversations.sort((a,b) => {
-      var c = new Date(a.updated.seconds * 1000);
-      var d = new Date(b.updated.seconds * 1000);
+      var c = a.updated.toDate();
+      var d = b.updated.toDate();
       return d-c;
     });
     if (this.state.updated) {
@@ -33,8 +33,8 @@ class Conversations extends Component {
 
       Array.prototype.push.apply(allConversations, conversations);
       allConversations.sort((a,b) => {
-        var c = new Date(a.updated.seconds * 1000);
-        var d = new Date(b.updated.seconds * 1000);
+        var c = a.updated.toDate();
+        var d = b.updated.toDate();
         return d-c;
       });
       this.setState({

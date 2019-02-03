@@ -59,15 +59,15 @@ class TripsPage extends Component {
     querySnapshot.forEach((doc) => {
       const tripsObject = doc.data();
       tripsObject.id = doc.id;
-      tripsObject.leaveDateFormated = new Date(tripsObject.leaveDate.seconds * 1000).toISOString();
-      tripsObject.returnDateFormated = new Date(tripsObject.returnDate.seconds * 1000).toISOString();
+      tripsObject.leaveDateFormated = tripsObject.leaveDate.toDate().toISOString();
+      tripsObject.returnDateFormated = tripsObject.returnDate.toDate().toISOString();
       trips.push(tripsObject);
     });
     trips = trips.filter(this.filterByDate);
 
     trips.sort((a,b) => {
-      var c = new Date(a.leaveDate.seconds * 1000);
-      var d = new Date(b.leaveDate.seconds * 1000);
+      var c = a.leaveDate.toDate();
+      var d = b.leaveDate.toDate();
       return c-d;
     });
 
@@ -82,8 +82,8 @@ class TripsPage extends Component {
     let searchTrips = this.state.trips.filter(this.filterByDistance);
 
     searchTrips.sort((a,b) => {
-      var c = new Date(a.leaveDate.seconds * 1000);
-      var d = new Date(b.leaveDate.seconds * 1000);
+      var c = a.leaveDate.toDate();
+      var d = b.leaveDate.toDate();
       return c-d;
     });
 
