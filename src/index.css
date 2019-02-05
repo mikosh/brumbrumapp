@@ -113,6 +113,14 @@ code {
   color: #ffffff;
 }
 
+.btn-map {
+  background: #337ab7 none repeat scroll 0 0 !important;
+  border-color: #337ab7 !important;
+  color: #ffffff;
+  margin-left: 15px; 
+}
+
+
 .active-brum {
   background: #337ab7 none repeat scroll 0 0 !important;
   color: #ffffff;

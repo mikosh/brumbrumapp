@@ -11,6 +11,7 @@ import profile from '../../assets/profile.png';
 import Popup from "reactjs-popup";
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import Map from './MapComponent';
 
 const TripViewPage = () => (
   <TripView />
@@ -76,6 +77,7 @@ class TripViewBase extends Component {
             if (response.rows[0].elements[0].status === 'OK') {
               trip.distance = response.rows[0].elements[0].distance.text;
               trip.duration = response.rows[0].elements[0].duration.text;
+              //directionsDisplay = new google.maps.DirectionsRenderer();
             }
           } else{
             alert('Error was: ' + status);
@@ -199,10 +201,88 @@ class TripViewBase extends Component {
 
               <ul className="list-group">
                 <li className="list-group-item active-brum"><center><h3><Moment format="dddd, MMMM Do, HH:mm">{trip.leaveDateConverted}</Moment></h3></center></li>
-                <li className="list-group-item"><img src={startPin} alt="startPin" className="image-fluid logo"/><span className="list-span font-weight-bold">{trip.startAddress}, {trip.startCity}</span></li>
-                <li className="list-group-item"><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span">Distance: {trip.distance}</span></li>
+                <li className="list-group-item">
+                  <Popup trigger={<img src={startPin} alt="startPin" className="image-fluid logo"/>} modal>
+                    {close => (
+                      <div>
+                      <Map
+                        id="map"
+                        options={{
+                          center: { lat: trip.startLat, lng: trip.startLon },
+                          zoom: 8
+                        }}
+                        onMapLoad={map => {
+                          new window.google.maps.Marker({
+                            position: { lat: trip.startLat, lng: trip.startLon },
+                            map: map,
+                            title: trip.startCity
+                          });
+                        }}
+                      />
+                      </div>
+                    )}
+                  </Popup>
+                  <span className="list-span font-weight-bold">{trip.startAddress}, {trip.startCity}</span>
+                </li>
+                <li className="list-group-item"><img src={strip} alt="strip" className="image-fluid logo" />
+                  <span className="list-span">Distance: {trip.distance}</span>
+                  <Popup trigger={<button className="btn btn-primary btn-map">Show route</button>} modal>
+                    {close => (
+                      <div>
+                      <Map
+                        id="map"
+                        options={{
+                          center: { lat: (trip.startLat + trip.endLat)/2, lng: (trip.startLon +trip.endLon)/2 },
+                          zoom: 8
+                        }}
+                        onMapLoad={map => {
+
+                          var directionsService = new window.google.maps.DirectionsService();
+                          var directionsDisplay = new window.google.maps.DirectionsRenderer();
+
+                          directionsDisplay.setMap(map);
+                          var start = new window.google.maps.LatLng(trip.startLat, trip.startLon);
+                          var end = new window.google.maps.LatLng(trip.endLat, trip.endLon);
+                          var request = {
+                              origin: start,
+                              destination: end,
+                              travelMode: 'DRIVING'
+                          };
+                          directionsService.route(request, function(response, status) {
+                            if (status === 'OK') {
+                              directionsDisplay.setDirections(response);
+                            }
+                          });
+                        }}
+                      />
+                      </div>
+                    )}
+                  </Popup>
+                  </li>
                 <li className="list-group-item"><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span">Estimated time: {trip.duration}</span></li>
-                <li className="list-group-item"><img src={endPin} alt="endPin" className="image-fluid logo" /><span className="list-span font-weight-bold">{trip.endAddress}, {trip.endCity}</span></li>
+                <li className="list-group-item">
+                  <Popup trigger={<img src={endPin} alt="endPin" className="image-fluid logo" />} modal>
+                    {close => (
+                      <div>
+                      <Map
+                        id="map"
+                        options={{
+                          center: { lat: trip.endLat, lng: trip.endLon },
+                          zoom: 8
+                        }}
+                        onMapLoad={map => {
+                          new window.google.maps.Marker({
+                            position: { lat: trip.endLat, lng: trip.endLon },
+                            map: map,
+                            title: trip.endCity
+                          });
+                        }}
+                      />
+                      </div>
+                    )}
+                  </Popup>
+                  <span className="list-span font-weight-bold">{trip.endAddress}, {trip.endCity}</span>
+                </li>
                 <li className="list-group-item" hidden={!trip.roundTrip}><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span"><Moment format="dddd, MMMM Do, hh:mm">{trip.returnDateConverted}</Moment></span></li>
                 <li className="list-group-item" hidden={!trip.roundTrip}><img src={startPin} alt="startPin" className="image-fluid logo"/><span className="list-span font-weight-bold">{trip.startAddress}, {trip.startCity}</span></li>
                 <li className="list-group-item"><img src={trip.imageUrl? trip.imageUrl : profile} alt="avatar" className="avatar" /><span className="list-span">{trip.driverName}, {trip.driverAge}</span></li>
@@ -221,7 +301,7 @@ class TripViewBase extends Component {
                           Message
                         </button>
                         <span className="list-span"/>
-                        <Popup trigger={<button className="btn btn-primary btn-brum" disabled={isDisabled}>Call</button>} position="top">
+                        <Popup trigger={<button className="btn btn-primary btn-brum" disabled={isDisabled}>Call</button>} position="top center">
                           {close => (
                           <div>
                             <button className="close" onClick={close}>
@@ -244,7 +324,7 @@ class TripViewBase extends Component {
                           <center>
                             <Link className="btn btn-primary btn-brum" to={`/edit_trip/${trip.id}`} >Edit</Link>
                             <span className="list-span"/>
-                            <Popup trigger={<button className="btn btn-primary btn-brum">Delete</button>} position="top">
+                            <Popup trigger={<button className="btn btn-primary btn-brum">Delete</button>} position="top center">
                               {close => (
                                 <div>
                                 <button className="close" onClick={close}>
