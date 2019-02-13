@@ -126,7 +126,7 @@ class TripViewBase extends Component {
         // parse the localStorage string and setState
         try {
           value = JSON.parse(value);
-          console.log(value.uid);
+          //console.log(value.uid);
           this.setState({ driver: value.uid });
           this.props.firebase.profiles().where("userId", "==", value.uid).onSnapshot(this.onProfileSet);
 

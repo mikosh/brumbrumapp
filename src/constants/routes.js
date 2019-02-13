@@ -2,6 +2,7 @@ export const LANDING = '/';
 export const SIGN_UP = '/signup';
 export const SIGN_IN = '/signin';
 export const TRIPS = '/trips';
+export const MY_TRIPS = '/my_trips';
 export const CONVERSATIONS = '/conversations';
 export const MESSAGES = '/conversations/:id/messages';
 export const NEW_TRIP = '/add_trip';

@@ -6,7 +6,7 @@ import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from '../Session';
 import logo from '../../assets/logo.png';
-import { FaHome, FaRegComments, FaUserCircle, FaPlus } from "react-icons/fa";
+import { FaHome, FaRegComments, FaUserCircle, FaPlus, FaRoad } from "react-icons/fa";
 import LanguageToggle from './languageToggle';
 import { renderToStaticMarkup } from "react-dom/server";
 import { withLocalize } from "react-localize-redux";
@@ -76,6 +76,9 @@ class Navigation extends Component {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ACCOUNT} title="Profile"><FaUserCircle/></Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.MY_TRIPS} title="My trips"><FaRoad/></Link>
                 </li>
                 {authUser.email.includes(ROLES.ADMIN) && (
                   <li>
