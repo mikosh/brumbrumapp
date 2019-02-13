@@ -76,7 +76,7 @@ class MyTripsPage extends Component {
 
 const TripsList = ({ loading, trips }) => (
   <div>
-    <h2>Your trips</h2>
+    <h2>My trips</h2>
     { (!loading && trips && trips.length === 0)?
       <div className="alert alert-info" role="alert">
         <h3>Oh no :(</h3>
