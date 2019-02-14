@@ -4,6 +4,10 @@ import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { withLocalize } from "react-localize-redux";
+import { Translate } from "react-localize-redux";
+import bgTranslations from "./bg.signup.json";
+import enTranslations from "./en.signup.json";
 
 const SignUpPage = () => (
   <SignUpForm />
@@ -23,7 +27,8 @@ const INITIAL_STATE = {
 class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
-
+    this.props.addTranslationForLanguage(bgTranslations, "bg");
+    this.props.addTranslationForLanguage(enTranslations, "en");
     this.state = { ...INITIAL_STATE };
   }
 
@@ -93,10 +98,12 @@ class SignUpFormBase extends Component {
       <div className="login-form">
       <div className="main-div">
       <div className="panel">
-        <h2>Create an account</h2>
+        <h2><Translate id="title"/></h2>
         <hr/>
         {error && <p>{error.message}</p>}
       </div>
+      <Translate>
+      {({translate}) =>
       <form onSubmit={this.onSubmit} id="Login">
 
         <div className="form-group">
@@ -105,7 +112,7 @@ class SignUpFormBase extends Component {
             value={firstName}
             onChange={this.onChange}
             type="text"
-            placeholder="Name"
+            placeholder={translate('name')}
           />
         </div>
         <div className="form-group">
@@ -114,7 +121,7 @@ class SignUpFormBase extends Component {
             value={lastName}
             onChange={this.onChange}
             type="text"
-            placeholder="Surname"
+            placeholder={translate('surname')}
           />
         </div>
         <div className="form-group input-group mb-3">
@@ -135,7 +142,7 @@ class SignUpFormBase extends Component {
               </select>
           </div>
           <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-              name="phone" value={phone} onChange={this.onChange} placeholder="Enter phone number"/>
+              name="phone" value={phone} onChange={this.onChange} placeholder={translate('phone')}/>
         </div>
         <div className="form-group">
           <input className="form-control"
@@ -143,7 +150,7 @@ class SignUpFormBase extends Component {
             value={email}
             onChange={this.onChange}
             type="text"
-            placeholder="Email Address"
+            placeholder={translate('email')}
           />
         </div>
         <div className="form-group">
@@ -152,7 +159,7 @@ class SignUpFormBase extends Component {
             value={passwordOne}
             onChange={this.onChange}
             type="password"
-            placeholder="Password"
+            placeholder={translate('password')}
           />
         </div>
         <div className="form-group">
@@ -161,15 +168,17 @@ class SignUpFormBase extends Component {
             value={passwordTwo}
             onChange={this.onChange}
             type="password"
-            placeholder="Confirm Password"
+            placeholder={translate('confirm_password')}
           />
         </div>
         <button disabled={isInvalid} type="submit" className="btn btn-primary">
-          Sign Up
+          {translate('signup')}
         </button>
 
         {error && <p>{error.message}</p>}
       </form>
+      }
+      </Translate>
       </div>
       </div>
     );
@@ -178,12 +187,12 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    <Translate id="no_account"/> <Link to={ROUTES.SIGN_UP}><Translate id="signup"/></Link>
   </p>
 );
 const SignUpForm = compose(
   withRouter,
-  withFirebase,
+  withFirebase, withLocalize
 )(SignUpFormBase);
 
 export default SignUpPage;

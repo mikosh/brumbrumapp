@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import { withLocalize } from "react-localize-redux";
+import { Translate } from "react-localize-redux";
+import bgTranslations from "./bg.passwordforget.json";
+import enTranslations from "./en.passwordforget.json";
 
 const PasswordForgetPage = () => (
     <PasswordForgetForm />
@@ -16,7 +20,8 @@ const INITIAL_STATE = {
 class PasswordForgetFormBase extends Component {
   constructor(props) {
     super(props);
-
+    this.props.addTranslationForLanguage(bgTranslations, "bg");
+    this.props.addTranslationForLanguage(enTranslations, "en");
     this.state = { ...INITIAL_STATE };
   }
 
@@ -47,11 +52,14 @@ class PasswordForgetFormBase extends Component {
     return (
       <div className="login-form">
         <div className="main-div">
+
           <div className="panel">
-            <h2>Send reset password instructions</h2>
+            <h2><Translate id="title"/></h2>
             <hr/>
             {error && <p>{error.message}</p>}
           </div>
+          <Translate>
+          {({translate}) =>
           <form onSubmit={this.onSubmit} id="PasswordForget">
             <div className="form-group">
               <input className="form-control"
@@ -59,13 +67,15 @@ class PasswordForgetFormBase extends Component {
                 value={this.state.email}
                 onChange={this.onChange}
                 type="text"
-                placeholder="Email Address"
+                placeholder={translate('email')}
               />
             </div>
             <button disabled={isInvalid} type="submit" className="btn btn-primary">
-              Send Instructions
+              {translate('button')}
             </button>
           </form>
+          }
+          </Translate>
         </div>
       </div>
     );
@@ -74,12 +84,12 @@ class PasswordForgetFormBase extends Component {
 
 const PasswordForgetLink = () => (
   <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+    <Link to={ROUTES.PASSWORD_FORGET}><Translate id="forgot_password"/></Link>
   </p>
 );
 
 export default PasswordForgetPage;
 
-const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
+const PasswordForgetForm = withFirebase(withLocalize(PasswordForgetFormBase));
 
 export { PasswordForgetForm, PasswordForgetLink };

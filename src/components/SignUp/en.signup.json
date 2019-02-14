@@ -1,0 +1,10 @@
+{
+  "title": "Create an account",
+  "name": "First Name",
+  "surname": "Last Name",
+  "email": "Email Address",
+  "signup": "Sign Up",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "phone": "Enter Phone Number"
+}

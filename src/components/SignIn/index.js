@@ -5,6 +5,10 @@ import { compose } from 'recompose';
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
+import { withLocalize } from "react-localize-redux";
+import { Translate } from "react-localize-redux";
+import bgTranslations from "./bg.signin.json";
+import enTranslations from "./en.signin.json";
 import * as ROUTES from '../../constants/routes';
 
 const SignInPage = () => (
@@ -20,7 +24,8 @@ const INITIAL_STATE = {
 class SignInFormBase extends Component {
   constructor(props) {
     super(props);
-
+    this.props.addTranslationForLanguage(bgTranslations, "bg");
+    this.props.addTranslationForLanguage(enTranslations, "en");
     this.state = { ...INITIAL_STATE };
   }
 
@@ -53,19 +58,23 @@ class SignInFormBase extends Component {
         <div className="login-form">
         <div className="main-div">
         <div className="panel">
-          <h2>BrumBrum Carpooling</h2>
+          <h2><Translate id="title"/></h2>
           <hr/>
           {error && <p>{error.message}</p>}
         </div>
+        <Translate>
+        {({translate}) =>
         <form onSubmit={this.onSubmit} id="Login">
           <div className="form-group">
-            <input className="form-control"
-              name="email"
-              value={email}
-              onChange={this.onChange}
-              type="text"
-              placeholder="Email Address"
-            />
+
+              <input className="form-control"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="text"
+                placeholder={translate('email')}
+              />
+
           </div>
           <div className="form-group">
             <input className="form-control"
@@ -73,16 +82,18 @@ class SignInFormBase extends Component {
               value={password}
               onChange={this.onChange}
               type="password"
-              placeholder="Password"
+              placeholder={translate('password')}
             />
           </div>
           <div className="forgot">
             <PasswordForgetLink />
           </div>
           <button className="btn btn-primary" disabled={isInvalid} type="submit">
-            Log In
+            {translate('login')}
           </button>
         </form>
+        }
+        </Translate>
         <br/>
         <hr/>
         <SignUpLink />
@@ -94,7 +105,7 @@ class SignInFormBase extends Component {
 
 const SignInForm = compose(
   withRouter,
-  withFirebase,
+  withFirebase, withLocalize
 )(SignInFormBase);
 
 export default SignInPage;
