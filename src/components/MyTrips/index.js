@@ -5,6 +5,12 @@ import { withAuthorization, withEmailVerification } from '../Session';
 import Moment from 'react-moment';
 //import 'moment/locale/bg';
 import profile from '../../assets/profile.png';
+import smoking from '../../assets/pref-smoking-yes.png';
+import nosmoking from '../../assets/pref-smoking-no.png';
+import pets from '../../assets/pref-pet-yes.png';
+import nopets from '../../assets/pref-pet-no.png';
+import music from '../../assets/pref-music-yes.png';
+import nomusic from '../../assets/pref-music-no.png';
 
 
 class MyTripsPage extends Component {
@@ -92,15 +98,20 @@ const TripsList = ({ loading, trips }) => (
             <span> {trip.driverName}, {trip.driverAge}</span></h5>
             <h5>{trip.price} {trip.currency}</h5>
           </div>
-          <p className="mb-1">{trip.startCity} - {(trip.roundTrip)? trip.endCity + " - " + trip.startCity : trip.endCity}</p>
+          <p className="mb-1">
+            <span>{trip.startCity} - {(trip.roundTrip)? trip.endCity + " - " + trip.startCity : trip.endCity}</span>
+            <span><img src={trip.smokingAllowed? smoking : nosmoking} alt="Smoking" className="prefs"/></span>
+            <span><img src={trip.petsAllowed? pets : nopets} alt="Pets" className="prefs"/></span>
+            <span><img src={trip.musicAllowed? music : nomusic} alt="Music" className="prefs"/></span>
+          </p>
           {(trip.roundTrip) ?
             <small>
-              <Moment format="ddd, MMM Do, hh:mm">{trip.leaveDateFormated}</Moment>
+              <Moment format="ddd, MMM Do, HH:mm">{trip.leaveDateFormated}</Moment>
               <span> - </span>
-              <Moment format="ddd, MMM Do, hh:mm">{trip.returnDateFormated}</Moment>
+              <Moment format="ddd, MMM Do, HH:mm">{trip.returnDateFormated}</Moment>
             </small>
             :
-            <small><Moment format="ddd, MMM Do, hh:mm">{trip.leaveDateFormated}</Moment></small>
+            <small><Moment format="ddd, MMM Do, HH:mm">{trip.leaveDateFormated}</Moment></small>
           }
         </Link>
       ))
