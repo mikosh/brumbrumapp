@@ -17,6 +17,7 @@ import Conversations from '../Conversations';
 import MessagesPage from '../Messages';
 import TermsPage from '../Terms';
 import PrivacyPage from '../Privacy';
+import ProfilePage from '../Profile';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -45,6 +46,7 @@ const App = () => (
             <Route exact path={ROUTES.MESSAGES} component={MessagesPage} />
             <Route exact path={ROUTES.TERMS} component={TermsPage} />
             <Route exact path={ROUTES.PRIVACY} component={PrivacyPage} />
+            <Route exact path={ROUTES.PROFILE} component={ProfilePage} />
             </main>
           </div>
         </Router>

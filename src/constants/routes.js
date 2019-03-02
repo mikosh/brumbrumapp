@@ -13,3 +13,4 @@ export const ADMIN = '/admin';
 export const ADMIN_DETAILS = '/admin/:id';
 export const TERMS = '/terms';
 export const PRIVACY = '/privacy';
+export const PROFILE = '/profile/:id';
