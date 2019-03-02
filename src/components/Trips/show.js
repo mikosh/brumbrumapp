@@ -291,7 +291,12 @@ class TripViewBase extends Component {
                 </li>
                 <li className="list-group-item" hidden={!trip.roundTrip}><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span"><Moment format="dddd, MMMM Do, hh:mm">{trip.returnDateConverted}</Moment></span></li>
                 <li className="list-group-item" hidden={!trip.roundTrip}><img src={startPin} alt="startPin" className="image-fluid logo"/><span className="list-span font-weight-bold">{trip.startAddress}, {trip.startCity}</span></li>
-                <li className="list-group-item"><img src={trip.imageUrl? trip.imageUrl : profile} alt="avatar" className="avatar" /><span className="list-span">{trip.driverName}, {trip.driverAge}</span></li>
+                <li className="list-group-item">
+                  <Link to={`/profile/${trip.driver}`} key={trip.driver} className="brum-link" title="View Profile">
+                  <img src={trip.imageUrl? trip.imageUrl : profile} alt="avatar" className="avatar" />
+                  <span className="list-span">{trip.driverName}, {trip.driverAge}</span>
+                  </Link>
+                </li>
                 <li className="list-group-item"><span className="list-span">Price: </span><span className="list-span font-weight-bold">{trip.price} {trip.currency}</span></li>
                 <li className="list-group-item"><span className="list-span">Seats: </span><span className="list-span font-weight-bold">{trip.seats}</span></li>
                 <li className="list-group-item">
