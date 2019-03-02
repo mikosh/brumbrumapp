@@ -23,6 +23,7 @@ const INITIAL_STATE = {
   roundTrip: false,
   smokingAllowed: false,
   petsAllowed: false,
+  musicAllowed: false,
   deleted: false,
   daily: false,
   driver: '',
@@ -157,7 +158,7 @@ class NewTrip extends Component {
     e.preventDefault();
 
     const { startAddress, startCity, startLat, startLon, endAddress, endCity, endLat, endLon,
-      roundTrip, smokingAllowed, petsAllowed, deleted, driver, driverName, driverAge,
+      roundTrip, smokingAllowed, petsAllowed, musicAllowed, deleted, driver, driverName, driverAge,
        leaveDate, returnDate, seats, price, currency, description, imageUrl, daily } = this.state;
 
     this.ref.add({
@@ -174,6 +175,7 @@ class NewTrip extends Component {
       roundTrip,
       smokingAllowed,
       petsAllowed,
+      musicAllowed,
       deleted,
       driver,
       driverName,
@@ -194,7 +196,7 @@ class NewTrip extends Component {
   }
 
   render() {
-    const { startAddress, endAddress, leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed } = this.state;
+    const { startAddress, endAddress, leaveDate, returnDate, seats, price, currency, description, smokingAllowed, musicAllowed, roundTrip, petsAllowed } = this.state;
 
     const isInvalid = startAddress === '' || endAddress === '' || leaveDate === '' || seats === '' || price === '' || description === '';
 
@@ -239,6 +241,11 @@ class NewTrip extends Component {
               <div className="form-group">
                 <span className="form-control">
                   <input type="checkbox" name="smokingAllowed" onChange={this.onToggleChange} checked={smokingAllowed} value={smokingAllowed} /> Smoking allowed
+                </span>
+              </div>
+              <div className="form-group">
+                <span className="form-control">
+                  <input type="checkbox" name="musicAllowed" onChange={this.onToggleChange} checked={musicAllowed} value={musicAllowed} /> Music
                 </span>
               </div>
               <div className="form-group">

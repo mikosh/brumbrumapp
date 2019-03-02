@@ -19,6 +19,7 @@ const INITIAL_STATE = {
   roundTrip: false,
   smokingAllowed: false,
   petsAllowed: false,
+  musicAllowed: false,
   deleted: false,
   driver: '',
   driverName: '',
@@ -57,6 +58,7 @@ class EditTrip extends Component {
           roundTrip: trip.roundTrip,
           smokingAllowed: trip.smokingAllowed,
           petsAllowed: trip.petsAllowed,
+          musicAllowed: trip.musicAllowed,
           deleted: trip.deleted,
           driver: trip.driver,
           driverName: trip.driverName,
@@ -103,11 +105,11 @@ class EditTrip extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed } = this.state;
+    const { leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed, musicAllowed } = this.state;
 
     const updateRef = this.props.firebase.trip(this.state.key);
     updateRef.update({
-      leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed
+      leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed, musicAllowed
     }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push("/trips/"+this.props.match.params.id)
@@ -118,7 +120,7 @@ class EditTrip extends Component {
   }
 
   render() {
-    const { startAddress, endAddress, startCity, endCity, leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed } = this.state;
+    const { startAddress, endAddress, startCity, endCity, leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed, musicAllowed } = this.state;
 
     const isInvalid = startAddress === '' || endAddress === '' || leaveDate === '' || seats === '' || price === '' || description === '';
     return (
@@ -162,6 +164,11 @@ class EditTrip extends Component {
             <div className="form-group">
               <span className="form-control">
                 <input type="checkbox" name="smokingAllowed" onChange={this.onToggleChange} checked={smokingAllowed} value={smokingAllowed} /> Smoking allowed
+              </span>
+            </div>
+            <div className="form-group">
+              <span className="form-control">
+                <input type="checkbox" name="musicAllowed" onChange={this.onToggleChange} checked={musicAllowed} value={musicAllowed} /> Music
               </span>
             </div>
             <div className="form-group">

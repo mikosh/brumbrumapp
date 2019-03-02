@@ -8,6 +8,12 @@ import endPin from '../../assets/endPin.png';
 import startPin from '../../assets/startPin.png';
 import strip from '../../assets/strip.png';
 import profile from '../../assets/profile.png';
+import smoking from '../../assets/pref-smoking-yes.png';
+import nosmoking from '../../assets/pref-smoking-no.png';
+import pets from '../../assets/pref-pet-yes.png';
+import nopets from '../../assets/pref-pet-no.png';
+import music from '../../assets/pref-music-yes.png';
+import nomusic from '../../assets/pref-music-no.png';
 import Popup from "reactjs-popup";
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
@@ -126,7 +132,7 @@ class TripViewBase extends Component {
         // parse the localStorage string and setState
         try {
           value = JSON.parse(value);
-          console.log(value.uid);
+          //console.log(value.uid);
           this.setState({ driver: value.uid });
           this.props.firebase.profiles().where("userId", "==", value.uid).onSnapshot(this.onProfileSet);
 
@@ -288,8 +294,11 @@ class TripViewBase extends Component {
                 <li className="list-group-item"><img src={trip.imageUrl? trip.imageUrl : profile} alt="avatar" className="avatar" /><span className="list-span">{trip.driverName}, {trip.driverAge}</span></li>
                 <li className="list-group-item"><span className="list-span">Price: </span><span className="list-span font-weight-bold">{trip.price} {trip.currency}</span></li>
                 <li className="list-group-item"><span className="list-span">Seats: </span><span className="list-span font-weight-bold">{trip.seats}</span></li>
-                <li className="list-group-item"><span className="list-span">Pets allowed: </span><span className="list-span font-weight-bold">{trip.petsAllowed? "Yes":"No"}</span></li>
-                <li className="list-group-item"><span className="list-span">Smoking allowed: </span><span className="list-span font-weight-bold">{trip.smokingAllowed? "Yes":"No"}</span></li>
+                <li className="list-group-item">
+                  <span><img src={trip.smokingAllowed? smoking : nosmoking} alt="Smoking" className="prefs" title={trip.smokingAllowed? "Smoking is allowed" : "No smoking, sorry."}/></span>
+                  <span><img src={trip.petsAllowed? pets : nopets} alt="Pets" className="prefs" title={trip.petsAllowed? "Pets are allowed" : "No pets, sorry."}/></span>
+                  <span><img src={trip.musicAllowed? music : nomusic} alt="Music" className="prefs" title={trip.musicAllowed? "Music in the car" : "NO music, sorry."}/></span>
+                </li>
                 <li className="list-group-item"><span className="list-span">Trip description: </span><span className="list-span font-weight-lighter">{trip.description}</span></li>
                 <li className="list-group-item">
 

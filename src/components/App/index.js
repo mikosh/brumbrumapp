@@ -8,6 +8,7 @@ import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
 import PasswordForgetPage from '../PasswordForget';
 import TripsPage from '../Trips';
+import MyTripsPage from '../MyTrips';
 import TripViewPage from '../Trips/show';
 import NewTrip from '../Trips/new';
 import EditTrip from '../Trips/edit';
@@ -37,6 +38,7 @@ const App = () => (
               component={PasswordForgetPage}
             />
             <Route exact path={ROUTES.TRIPS} component={TripsPage} />
+            <Route exact path={ROUTES.MY_TRIPS} component={MyTripsPage} />
             <Route exact path={ROUTES.NEW_TRIP} component={NewTrip} />
             <Route exact path={ROUTES.EDIT_TRIP} component={EditTrip} />
             <Route path={ROUTES.TRIP_DETAILS} component={TripViewPage} />
