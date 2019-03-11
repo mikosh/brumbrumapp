@@ -20,8 +20,7 @@ class ProfilePage extends Component {
       location: '',
       userId: '',
       isUploading: false,
-      progress: 0,
-      loading: false
+      progress: 0
     };
   }
 
