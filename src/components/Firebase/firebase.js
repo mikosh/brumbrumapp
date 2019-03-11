@@ -96,6 +96,13 @@ class Firebase {
   conversations = () => this.db.collection('conversations');
   conversation = id => this.db.collection('conversations').doc(id);
   messages = id => this.db.collection('conversations').doc(id).collection('messages');
+
+  // *** Survey API ***
+
+  survey = () => this.db.collection('survey');
+
+  reservations = () => this.db.collection('reservations');
+
 }
 
 export default Firebase;

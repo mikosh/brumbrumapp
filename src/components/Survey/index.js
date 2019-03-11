@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withFirebase } from '../Firebase';
+import { compose } from 'recompose';
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
 import 'bootstrap/dist/css/bootstrap.css'
@@ -6,8 +8,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 class SurveyPage extends Component {
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
 
+  }
+
+  componentWillMount() {
+    console.log(this.props);
   }
 
   json = { title: "BrumBrum Carpooling Service Survey", showProgressBar: "top", pages: [
@@ -70,7 +77,7 @@ class SurveyPage extends Component {
                         name: "carpooling_reason",
                         title: "What would be your primary reason for using a carpooling service?",
                         isRequired: true,
-                        choices: ["Save car maintenance costs", "Save fuel costs", "Meet interesting people", "Travel in a more sustainable way", "Avoid looking for a parking space", "Travel faster", "Travel more convenient"]
+                        choices: ["Save travel costs", "Meet interesting people", "No other travel alternative", "Travel in a more sustainable way", "Avoid looking for a parking space", "Travel faster", "Travel more convenient"]
                     }
                 ]
             }
@@ -125,7 +132,7 @@ class SurveyPage extends Component {
                       name: "post_a_trip",
                       title: "On a scale of 1 to 5, how comfortable would you be sharing your trip with a stranger?",
                       isRequired: true,
-                      mininumRateDescription: "Not comfortable",
+                      mininumRateDescription: "Very uncomfortable",
                       maximumRateDescription: "Very comfortable"
                     },
                     {
@@ -133,7 +140,7 @@ class SurveyPage extends Component {
                       name: "book_a_trip",
                       title: "On a scale of 1 to 5, how comfortable would you be getting a ride from a stranger?",
                       isRequired: true,
-                      mininumRateDescription: "Not comfortable",
+                      mininumRateDescription: "Very uncomfortable",
                       maximumRateDescription: "Very comfortable"
                     }
                 ]
@@ -142,8 +149,30 @@ class SurveyPage extends Component {
 
     ]};
 
-  onComplete(survey, options) {
+  onComplete = (survey, options) => {
    //Write survey results into database
+
+   this.props.firebase.survey().add({
+     gender: JSON.stringify(survey.data.gender),
+     age: JSON.stringify(survey.data.age),
+     country: JSON.stringify(survey.data.country),
+     driver: JSON.stringify(survey.data.driver),
+     carpooled: JSON.stringify(survey.data.carpooled),
+     carpooling_reason: JSON.stringify(survey.data.carpooling_reason),
+     barriers: JSON.stringify(survey.data.barriers),
+     companion_info: JSON.stringify(survey.data.companion_info),
+     post_a_trip: JSON.stringify(survey.data.post_a_trip),
+     book_a_trip: JSON.stringify(survey.data.book_a_trip)
+
+   }).then((docRef) => {
+     console.log("Survey submitted.")
+   })
+   .catch((error) => {
+     console.error("Error adding document: ", error);
+   });
+
+
+   console.log(JSON.stringify(survey.data.companion_info))
    console.log("Survey results: " + JSON.stringify(survey.data));
   }
 
@@ -161,4 +190,4 @@ class SurveyPage extends Component {
 
 }
 
-export default SurveyPage;
+export default withFirebase(SurveyPage);
