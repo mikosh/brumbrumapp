@@ -98,7 +98,9 @@ class SurveyPage extends Component {
                         "Lack of safety",
                         "Unreliable",
                         "Unavailable for my trip",
-                        "Lack of flexibility"
+                        "Lack of flexibility",
+                        "No barriers"
+
                        ],
                        otherText: "Other (please describe)"
                     },
