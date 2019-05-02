@@ -37,6 +37,17 @@ class ConversationList extends Component {
   deleteConversation = (currentUser, conversation) => (e) =>{
     e.preventDefault();
     if (conversation.deleted === true) {
+      this.props.firebase.messages(conversation.id).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                this.props.firebase.message(conversation.id, doc.id).delete().then(() => {
+                    //console.log("Document successfully deleted!");
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+            });
+      }).catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
       this.props.firebase.conversation(conversation.id).delete().then(() => {
           //console.log("Document successfully deleted!");
       }).catch((error) => {

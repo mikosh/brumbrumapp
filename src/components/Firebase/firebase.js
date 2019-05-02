@@ -105,6 +105,7 @@ class Firebase {
   conversations = () => this.db.collection('conversations');
   conversation = id => this.db.collection('conversations').doc(id);
   messages = id => this.db.collection('conversations').doc(id).collection('messages');
+  message = (id, message_id) => this.db.collection('conversations').doc(id).collection('messages').doc(message_id);
 
   // *** Survey API ***
 
