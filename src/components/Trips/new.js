@@ -140,7 +140,6 @@ class NewTrip extends Component {
         // parse the localStorage string and setState
         try {
           value = JSON.parse(value);
-          console.log(value.uid);
           this.setState({ driver: value.uid });
           this.props.firebase.profiles().where("userId", "==", value.uid).onSnapshot(this.onProfileSet);
 
@@ -157,9 +156,10 @@ class NewTrip extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
+    //removed returnDate, roundTrip
     const { startAddress, startCity, startLat, startLon, endAddress, endCity, endLat, endLon,
-      roundTrip, smokingAllowed, petsAllowed, musicAllowed, deleted, driver, driverName, driverAge,
-       leaveDate, returnDate, seats, price, currency, description, imageUrl, daily } = this.state;
+       smokingAllowed, petsAllowed, musicAllowed, deleted, driver, driverName, driverAge,
+       leaveDate, seats, price, currency, description, imageUrl, daily } = this.state;
 
     this.ref.add({
       startAddress,
@@ -171,8 +171,8 @@ class NewTrip extends Component {
       endLat,
       endLon,
       leaveDate,
-      returnDate,
-      roundTrip,
+      //returnDate,
+      //roundTrip,
       smokingAllowed,
       petsAllowed,
       musicAllowed,
@@ -196,7 +196,8 @@ class NewTrip extends Component {
   }
 
   render() {
-    const { startAddress, endAddress, leaveDate, returnDate, seats, price, currency, description, smokingAllowed, musicAllowed, roundTrip, petsAllowed } = this.state;
+    // removed: roundTrip, returnDate
+    const { startAddress, endAddress, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed } = this.state;
 
     const isInvalid = startAddress === '' || endAddress === '' || leaveDate === '' || seats === '' || price === '' || description === '';
 
@@ -223,7 +224,7 @@ class NewTrip extends Component {
                   value={leaveDate}
                   onChange={this.onLeaveDateChange} />
               </div>
-              <div hidden={!roundTrip} className="form-group">
+              {/*<div hidden={!roundTrip} className="form-group">
                 <Flatpickr data-enable-time className="form-control" placeholder="Select leave date"
                   value={returnDate}
                   onChange={this.onReturnDateChange} />
@@ -233,6 +234,7 @@ class NewTrip extends Component {
                   <input type="checkbox" name="roundTrip" checked={roundTrip} value={roundTrip} onChange={this.onToggleChange} /> Round trip
                 </span>
               </div>
+              */}
               <div className="form-group">
                 <span className="form-control">
                   <input type="checkbox" name="petsAllowed" onChange={this.onToggleChange} checked={petsAllowed} value={petsAllowed} /> Pets allowed
@@ -255,7 +257,8 @@ class NewTrip extends Component {
                   <option value="2">2 Seats</option>
                   <option value="3">3 Seats</option>
                   <option value="4">4 Seats</option>
-                  <option value="5+">5+ Seats</option>
+                  <option value="5">5 Seats</option>
+                  <option value="6">6 Seats</option>
                 </select>
               </div>
               <div className="form-group">

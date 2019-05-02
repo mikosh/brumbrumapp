@@ -11,43 +11,33 @@ class Conversations extends Component {
     super(props);
     this.state = {
       loading: false,
-      updated: false,
       conversations: [],
+      currentUser: ''
     };
   }
 
   onCollectionUpdate = (querySnapshot) => {
     const conversations = [];
     querySnapshot.forEach((doc) => {
-      const conversationsObject = doc.data();
-      conversationsObject.id = doc.id;
-      conversations.push(conversationsObject);
-    });
-    conversations.sort((a,b) => {
-      var c = a.updated.toDate();
-      var d = b.updated.toDate();
-      return d-c;
-    });
-    if (this.state.updated) {
-      var allConversations = this.state.conversations;
+      const conversation = doc.data();
+      conversation.id = doc.id;
+      if ((conversation.deleted === false) || (conversation.deleted === true && conversation.deletedBy !== this.state.currentUser)) {
+        conversations.push(conversation);
+      }
 
-      Array.prototype.push.apply(allConversations, conversations);
-      allConversations.sort((a,b) => {
+      conversations.sort((a,b) => {
         var c = a.updated.toDate();
         var d = b.updated.toDate();
         return d-c;
       });
       this.setState({
-        loading: false,
-        updated: false,
-        conversations: allConversations
+          conversations
       });
-    } else {
-      this.setState({
-        updated: true,
-        conversations
-      });
-    }
+    });
+    this.setState({
+        loading: false
+    });
+
   }
 
   componentDidMount() {
@@ -58,9 +48,9 @@ class Conversations extends Component {
         try {
           value = JSON.parse(value);
           const userId = value.uid;
-          this.setState({ loading: true });
-          this.props.firebase.conversations().where("sender", "==", userId).onSnapshot(this.onCollectionUpdate);
-          this.props.firebase.conversations().where("recipient", "==", userId).onSnapshot(this.onCollectionUpdate);
+          this.setState({ loading: true, currentUser: userId });
+          this.senderListener = this.props.firebase.conversations().where("sender", "==", userId).onSnapshot(this.onCollectionUpdate);
+          this.recipientListener = this.props.firebase.conversations().where("recipient", "==", userId).onSnapshot(this.onCollectionUpdate);
         } catch (e) {
           console.log("parsing error! ", e);
         }
@@ -70,19 +60,29 @@ class Conversations extends Component {
   }
 
   componentWillUnmount() {
-
+    this.senderListener();
+    this.recipientListener();
+    this.setState({
+      loading: false,
+      updated: false,
+      conversations: [],
+      currentUser: ''
+    });
   }
 
   render() {
-    const { loading, conversations } = this.state;
+    const { loading, conversations, currentUser } = this.state;
     return (
       <div className="container">
         <div id="conversations" className="page">
 
           {loading && <div>Loading ...</div>}
-
-          <ConversationList conversations={conversations} />
-
+          {!loading && conversations && conversations.length === 0 &&
+            <div className="alert alert-info" role="alert">
+              <center>You have no messages.</center>
+            </div>
+          }
+          <ConversationList conversations={conversations} currentUser={currentUser} />
         </div>
       </div>
     );

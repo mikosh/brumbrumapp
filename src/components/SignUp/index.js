@@ -8,6 +8,7 @@ import { withLocalize } from "react-localize-redux";
 import { Translate } from "react-localize-redux";
 import bgTranslations from "./bg.signup.json";
 import enTranslations from "./en.signup.json";
+import Footer from '../SignIn/footer';
 
 const SignUpPage = () => (
   <SignUpForm />
@@ -95,99 +96,111 @@ class SignUpFormBase extends Component {
       phone === '';
 
     return (
-      <div className="login-form">
-      <div className="main-div">
-      <div className="panel">
-        <h2><Translate id="title"/></h2>
-        <hr/>
-        {error && <p>{error.message}</p>}
-      </div>
-      <Translate>
-      {({translate}) =>
-      <form onSubmit={this.onSubmit} id="Login">
-
-        <div className="form-group">
-          <input className="form-control"
-            name="firstName"
-            value={firstName}
-            onChange={this.onChange}
-            type="text"
-            placeholder={translate('name')}
-          />
-        </div>
-        <div className="form-group">
-          <input className="form-control"
-            name="lastName"
-            value={lastName}
-            onChange={this.onChange}
-            type="text"
-            placeholder={translate('surname')}
-          />
-        </div>
-        <div className="form-group input-group mb-3">
-          <div className="input-group-prepend">
-              <select name="phoneCode" onChange={this.onChange} value={phoneCode} className="form-control" >
-                <option value="+359" defaultValue>BG (+359)</option>
-                <option value="+43">AT (+43)</option>
-                <option value="+32">BE (+32)</option>
-                <option value="+41">CH (+41)</option>
-                <option value="+49">DE (+49)</option>
-                <option value="+33">FR (+33)</option>
-                <option value="+30">GR (+30)</option>
-                <option value="+38">ES (+38)</option>
-                <option value="+36">HU (+36)</option>
-                <option value="+39">IT (+39)</option>
-                <option value="+40">RO (+40)</option>
-                <option value="+44">UK (+44)</option>
-              </select>
+      <div>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <br/>
+          <br/>
+          <center>
+          <h1 className="display-4"><Translate id="title" /></h1>
+          <h5><Translate id="subtitle" /></h5>
+          </center>
+          <hr className="my-4"/>
+          <div className="login-form">
+          <div className="main-div">
+          <div className="panel">
+            {error && <p>{error.message}</p>}
           </div>
-          <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-              name="phone" value={phone} onChange={this.onChange} placeholder={translate('phone')}/>
-        </div>
-        <div className="form-group">
-          <input className="form-control"
-            name="email"
-            value={email}
-            onChange={this.onChange}
-            type="text"
-            placeholder={translate('email')}
-          />
-        </div>
-        <div className="form-group">
-          <input className="form-control"
-            name="passwordOne"
-            value={passwordOne}
-            onChange={this.onChange}
-            type="password"
-            placeholder={translate('password')}
-          />
-        </div>
-        <div className="form-group">
-          <input className="form-control"
-            name="passwordTwo"
-            value={passwordTwo}
-            onChange={this.onChange}
-            type="password"
-            placeholder={translate('confirm_password')}
-          />
-        </div>
-        <button disabled={isInvalid} type="submit" className="btn btn-primary">
-          {translate('signup')}
-        </button>
+          <Translate>
+          {({translate}) =>
+          <form onSubmit={this.onSubmit} id="Login">
 
-        {error && <p>{error.message}</p>}
-      </form>
-      }
-      </Translate>
+            <div className="form-group">
+              <input className="form-control"
+                name="firstName"
+                value={firstName}
+                onChange={this.onChange}
+                type="text"
+                placeholder={translate('name')}
+              />
+            </div>
+            <div className="form-group">
+              <input className="form-control"
+                name="lastName"
+                value={lastName}
+                onChange={this.onChange}
+                type="text"
+                placeholder={translate('surname')}
+              />
+            </div>
+            <div className="form-group input-group mb-3">
+              <div className="input-group-prepend">
+                  <select name="phoneCode" onChange={this.onChange} value={phoneCode} className="form-control" >
+                    <option value="+359" defaultValue>BG (+359)</option>
+                    <option value="+43">AT (+43)</option>
+                    <option value="+32">BE (+32)</option>
+                    <option value="+41">CH (+41)</option>
+                    <option value="+49">DE (+49)</option>
+                    <option value="+33">FR (+33)</option>
+                    <option value="+30">GR (+30)</option>
+                    <option value="+38">ES (+38)</option>
+                    <option value="+36">HU (+36)</option>
+                    <option value="+39">IT (+39)</option>
+                    <option value="+40">RO (+40)</option>
+                    <option value="+44">UK (+44)</option>
+                  </select>
+              </div>
+              <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                  name="phone" value={phone} onChange={this.onChange} placeholder={translate('phone')}/>
+            </div>
+            <div className="form-group">
+              <input className="form-control"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="text"
+                placeholder={translate('email')}
+              />
+            </div>
+            <div className="form-group">
+              <input className="form-control"
+                name="passwordOne"
+                value={passwordOne}
+                onChange={this.onChange}
+                type="password"
+                placeholder={translate('password')}
+              />
+            </div>
+            <div className="form-group">
+              <input className="form-control"
+                name="passwordTwo"
+                value={passwordTwo}
+                onChange={this.onChange}
+                type="password"
+                placeholder={translate('confirm_password')}
+              />
+            </div>
+            <button disabled={isInvalid} type="submit" className="btn btn-primary">
+              {translate('signup')}
+            </button>
+
+            {error && <p>{error.message}</p>}
+          </form>
+          }
+          </Translate>
+          </div>
+          </div>
+        </div>
       </div>
-      </div>
+      <Footer />
+    </div>
     );
   }
 }
 
 const SignUpLink = () => (
   <p>
-    <Translate id="no_account"/> <Link to={ROUTES.SIGN_UP}><Translate id="signup"/></Link>
+    <Translate id="no_account"/> <Link className="brumbrum-a" to={ROUTES.SIGN_UP}><Translate id="signup_btn"/></Link>
   </p>
 );
 const SignUpForm = compose(

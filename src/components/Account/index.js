@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import PasswordChangeForm from '../PasswordChange';
-import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
+import { withAuthorization, withEmailVerification } from '../Session';
 import profile from '../../assets/profile.png';
 import FirebaseFileUploader from '../FileUploader';
 
@@ -24,7 +24,8 @@ class AccountPage extends Component {
       location: '',
       userId: '',
       isUploading: false,
-      progress: 0
+      progress: 0,
+      batch: ''
     };
   }
 
@@ -36,9 +37,11 @@ class AccountPage extends Component {
 
   onProfileSet = (querySnapshot) => {
     var profile = {};
+    var batch = this.state.batch;
     querySnapshot.forEach((doc) => {
+      batch.delete(this.props.firebase.profile(doc.id));
       profile = doc.data();
-      this.setState({key: doc.id});
+      this.setState({batch, key: doc.id});
       return;
     });
     if (profile) {
@@ -58,6 +61,22 @@ class AccountPage extends Component {
     }
   }
 
+  onTripsUpdate = (querySnapshot) => {
+    var batch = this.state.batch;
+    querySnapshot.forEach((doc) => {
+      batch.delete(this.props.firebase.trip(doc.id));
+      this.setState({batch});
+    });
+  }
+
+  onRatingsUpdate = (querySnapshot) => {
+    var batch = this.state.batch;
+    querySnapshot.forEach((doc) => {
+      batch.delete(this.props.firebase.rating(doc.id));
+      this.setState({batch});
+    });
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
 
@@ -74,6 +93,14 @@ class AccountPage extends Component {
     });
   }
 
+  onDeleteUser = () => {
+    this.profileListener();
+    this.tripsListener();
+    this.ratingsListener();
+    this.state.batch.commit().then(() => {
+      this.props.firebase.doDeleteUser();
+    });
+  }
 
   handleUploadStart = () => this.setState({isUploading: true, progress: 0});
 
@@ -97,8 +124,10 @@ class AccountPage extends Component {
         // parse the localStorage string and setState
         try {
           value = JSON.parse(value);
-          console.log(value.uid);
-          this.props.firebase.profiles().where("userId", "==", value.uid).onSnapshot(this.onProfileSet);
+          this.setState({ batch: this.props.firebase.batch() });
+          this.profileListener = this.props.firebase.profiles().where("userId", "==", value.uid).onSnapshot(this.onProfileSet);
+          this.tripsListener = this.props.firebase.trips().where("driver", "==", value.uid).onSnapshot(this.onTripsUpdate);
+          this.ratingsListener = this.props.firebase.ratings().where("reviewed", "==", value.uid).onSnapshot(this.onRatingsUpdate);
 
         } catch (e) {
           // handle empty string
@@ -108,6 +137,12 @@ class AccountPage extends Component {
     } else {
       console.log("User not found");
     }
+  }
+
+  componentWillUnmount() {
+    this.profileListener();
+    this.tripsListener();
+    this.ratingsListener();
   }
 
   render () {
@@ -214,6 +249,17 @@ class AccountPage extends Component {
           </div>
           <div className="panel panel-default">
             <PasswordChangeForm />
+          </div>
+          <div className="panel panel-default">
+            <div className="panel-title">
+              <h2>Delete your BrumBrum account</h2>
+            </div>
+            <hr/>
+            <div className="panel-body">
+              <button className="btn btn-danger btn-sm" onClick={() => {if(window.confirm('Are you sure you want to delete your account?')){ this.onDeleteUser()};}}>
+                Delete account
+              </button>
+            </div>
           </div>
         </div>
       </div>

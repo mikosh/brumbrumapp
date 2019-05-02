@@ -7,6 +7,7 @@ import { withLocalize } from "react-localize-redux";
 import { Translate } from "react-localize-redux";
 import bgTranslations from "./bg.passwordforget.json";
 import enTranslations from "./en.passwordforget.json";
+import Footer from '../SignIn/footer';
 
 const PasswordForgetPage = () => (
     <PasswordForgetForm />
@@ -50,34 +51,45 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === '';
 
     return (
-      <div className="login-form">
-        <div className="main-div">
+      <div>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <br/>
+          <br/>
+          <center>
+          <h1 className="display-4"><Translate id="title" /></h1>
+          </center>
+          <hr className="my-4"/>
+          <div className="login-form">
+            <div className="main-div">
 
-          <div className="panel">
-            <h2><Translate id="title"/></h2>
-            <hr/>
-            {error && <p>{error.message}</p>}
-          </div>
-          <Translate>
-          {({translate}) =>
-          <form onSubmit={this.onSubmit} id="PasswordForget">
-            <div className="form-group">
-              <input className="form-control"
-                name="email"
-                value={this.state.email}
-                onChange={this.onChange}
-                type="text"
-                placeholder={translate('email')}
-              />
+              <div className="panel">
+                {error && <p>{error.message}</p>}
+              </div>
+              <Translate>
+              {({translate}) =>
+              <form onSubmit={this.onSubmit} id="PasswordForget">
+                <div className="form-group">
+                  <input className="form-control"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    type="text"
+                    placeholder={translate('email')}
+                  />
+                </div>
+                <button disabled={isInvalid} type="submit" className="btn btn-primary">
+                  {translate('button')}
+                </button>
+              </form>
+              }
+              </Translate>
             </div>
-            <button disabled={isInvalid} type="submit" className="btn btn-primary">
-              {translate('button')}
-            </button>
-          </form>
-          }
-          </Translate>
+          </div>
         </div>
       </div>
+      <Footer />
+    </div>
     );
   }
 }

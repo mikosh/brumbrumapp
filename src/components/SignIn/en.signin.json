@@ -1,9 +1,9 @@
 {
-  "title": "BrumBrum Carpooling",
+  "title": "BrumBrum ridesharing community",
+  "subtitle": "BrumBrum provides you more convenient, cheap, sustainable and fun way of travelling.",
   "email": "Email Address",
   "password": "Password",
-  "login": "Log in",
   "no_account": "Don't have an account?",
-  "signup": "Sign up",
   "forgot_password": "Forgot password?"
+
 }

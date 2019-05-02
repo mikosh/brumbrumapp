@@ -1,6 +1,6 @@
-export const LANDING = '/';
+export const ABOUT = '/brumbrum';
 export const SIGN_UP = '/signup';
-export const SIGN_IN = '/signin';
+export const SIGN_IN = '/';
 export const TRIPS = '/trips';
 export const MY_TRIPS = '/my_trips';
 export const CONVERSATIONS = '/conversations';
@@ -16,3 +16,7 @@ export const TERMS = '/terms';
 export const PRIVACY = '/privacy';
 export const PROFILE = '/profile/:id';
 export const SURVEY = '/survey';
+export const RESULTS = '/results';
+export const RESERVATIONS = '/reservations';
+export const RATINGS = '/ratings/:id';
+export const NOTIFICATIONS = '/notifications';

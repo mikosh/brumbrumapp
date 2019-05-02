@@ -1,6 +1,7 @@
 body, html {
   font-family: 'Rubik', sans-serif !important;
 }
+
 .container-fluid {
   padding: 0 !important;
 }
@@ -12,6 +13,14 @@ body, html {
   height: 40px;
   display: block;
   float: left;
+}
+
+.signin-logo {
+  width: 100px;
+  float: left;
+  display: block;
+  background-color: #337ab7;
+  border-radius: 10px;
 }
 
 #logo {
@@ -81,10 +90,10 @@ code {
   background: #ffffff none repeat scroll 0 0;
   border: 1px #c1c1c1 solid;
   border-radius: 6px;
-  margin: 100px auto 30px;
+  margin: 60px auto 0px;
   max-width: 600px;
   min-width: 250px;
-  padding: 50px 70px 70px 71px;
+  padding: 50px 70px 30px 71px;
 }
 
 .login-form .form-group {
@@ -137,8 +146,8 @@ code {
 .avatar {
   vertical-align: middle;
   object-fit: cover;
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
 
@@ -820,4 +829,74 @@ a.nav-link:hover{
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden
+}
+
+.reservationButtons {
+  float: right;
+}
+
+.notify-badge {
+  position:relative;
+  display: inline-block;
+  right: 7px;
+  top: -10px;
+  padding: 4px;
+  border-radius:50%;
+  background:rgba(255,0,0,.85);
+}
+
+.unread {
+  background-color: rgba(0,0,255,.05) !important;
+}
+.unread:hover {
+  background-color: rgba(255,0,0,.05) !important;
+}
+.info {
+  background-color: rgba(0,200,0,.25) !important;
+}
+
+.jumbotron {
+  background: linear-gradient(white, #D3D3E3);
+}
+
+#page-footer {
+  display: block;
+  color: #737373;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+ul li{
+  padding-left: 10px;
+}
+ul li.first{
+  padding-left: 0px !important;
+}
+
+.selector-list {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.brumbrum-a {
+    color: #365899;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.conv-container {
+  position: relative;
+  display: inline-block;
+}
+.action-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
 }

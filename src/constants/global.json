@@ -4,11 +4,15 @@
     "БръмБръм"
   ],
   "login_btn": [
-    "Login",
+    "Log in",
     "Вход"
   ],
+  "signup_btn": [
+    "Sign up",
+    "Регистрирай се"
+  ],
   "logout_btn": [
-    "Logout",
+    "Log out",
     "Изход"
   ],
   "terms_btn": [
@@ -20,8 +24,8 @@
     "Поверителност"
   ],
   "home_btn": [
-    "Home",
-    "Начало"
+    "Mobile",
+    "Мобилно приложение"
   ],
   "language": [
     "Language",

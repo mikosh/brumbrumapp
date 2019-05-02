@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withAuthorization, withEmailVerification } from '../Session';
 import profile from '../../assets/profile.png';
+import StarRatings from 'react-star-ratings';
+import { Link } from 'react-router-dom';
 
 class ProfilePage extends Component {
 
@@ -19,8 +21,8 @@ class ProfilePage extends Component {
       gender: '',
       location: '',
       userId: '',
-      isUploading: false,
-      progress: 0
+      ratings: [],
+      stars: ''
     };
   }
 
@@ -42,22 +44,35 @@ class ProfilePage extends Component {
         car: profile.car,
         gender: profile.gender,
         location: profile.location,
-        userId: profile.userId
+        userId: profile.userId,
+        stars: ''
       });
     }
   }
 
+  onRatingsUpdate = (querySnapshot) => {
+    let ratings = this.state.ratings;
+    querySnapshot.forEach((doc) => {
+      const rating = doc.data();
+      if (!Array.prototype.includes(this.ratings, rating)) {
+        ratings.push(rating);
+        let totalAmount = 0;
+        ratings.forEach( data => totalAmount = totalAmount + data.star);
+        this.setState({ratings, stars: (totalAmount/ratings.length).toFixed(1)});
+      }
+    });
+
+  }
 
   componentDidMount() {
     if (localStorage.hasOwnProperty('authUser')) {
       this.setState({ loading: true });
       const { match: { params } } = this.props;
-
-
         // parse the localStorage string and setState
+        this.setState({ userId: params.id });
         try {
-          this.props.firebase.profiles().where("userId", "==", params.id).onSnapshot(this.onProfileSet);
-
+          this.profileListener = this.props.firebase.profiles().where("userId", "==", params.id).onSnapshot(this.onProfileSet);
+          this.ratingsListener = this.props.firebase.ratings().where("reviewed", "==", params.id).onSnapshot(this.onRatingsUpdate);
         } catch (e) {
           // handle empty string
           console.log("parsing error! ", e);
@@ -67,8 +82,14 @@ class ProfilePage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.profileListener();
+    this.ratingsListener();
+  }
+
   render () {
-    const { loading, url, firstName, lastName, age, location, car, gender } = this.state;
+    const { loading, url, firstName, lastName, age, location, car, gender, ratings, stars, userId } = this.state;
+
     return (
       <div className="container">
       {loading && <div className="page">Loading ...</div>}
@@ -79,11 +100,21 @@ class ProfilePage extends Component {
             <div className="panel-heading">
             <center>
               <img src={url? url : profile} alt="avatar" className="avatar-big"/>
-              {this.state.isUploading &&
-                <p>Progress: {this.state.progress}</p>
-              }
             </center>
             </div>
+            <center>
+              <StarRatings
+                rating={Number(stars) + 0.0}
+                starRatedColor="orange"
+                numberOfStars={5}
+                name='star'
+              />
+              <div>
+                <span>Rating {stars} - </span> <span> <Link to={`/ratings/${userId}`} > {ratings.length} Reviews</Link></span>
+
+              </div>
+            </center>
+
             <br/>
             <div className="panel-body">
                 <div className="input-group mb-3">

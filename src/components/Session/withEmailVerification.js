@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Footer from '../SignIn/footer';
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
 
@@ -30,45 +30,51 @@ const withEmailVerification = Component => {
         <AuthUserContext.Consumer>
           {authUser =>
             needsEmailVerification(authUser) ? (
-              <div className="page">
-                <div className="section">
+              <div>
+              <div className="jumbotron jumbotron-fluid">
                 <div className="container">
-                <center>
-                {this.state.isSent ? (
-                  <div>
-                  <h3>Check your email</h3>
-                  <hr/>
-                  <p>
-                    Email confirmation sent: Check you mail (Spam
-                    folder included) for a confirmation email.
-                  </p>
-                  <p>
-                    Refresh this page once you clicked on the confirmation link.
-                  </p>
-                  </div>
-                ) : (
-                  <div>
-                  <h3>Verify your account</h3>
-                  <hr/>
-                  <p>
-                    Check your mail (Spam folder
-                    included) for a confirmation email or send
-                    another confirmation link.
-                  </p>
-                  </div>
-                )}
-                <hr/>
+                  <br/>
+                  <br/>
+                  <center>
 
-                <button className="btn btn-primary btn-brum"
-                  type="button"
-                  onClick={this.onSendEmailVerification}
-                  disabled={this.state.isSent}
-                >
-                  Send confirmation E-Mail
-                </button>
-                </center>
+                  {this.state.isSent ? (
+                    <div>
+                      <h1 className="display-4">Check your email</h1>
+
+                      <p className="lead">
+                        Email confirmation sent: Check you mail (Spam
+                        folder included) for a confirmation email.
+                      </p>
+                      <p>
+                        Refresh this page once you clicked on the confirmation link.
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <h1 className="display-4">Verify your account</h1>
+                      <p className="lead">
+                        Check your mail (Spam folder
+                        included) for a confirmation email or send
+                        another confirmation link.
+                      </p>
+                    </div>
+                  )}
+
+
+                  <hr className="my-4"/>
+                  <p className="lead">
+                    <button className="btn btn-primary btn-brum"
+                      type="button"
+                      onClick={this.onSendEmailVerification}
+                      disabled={this.state.isSent}
+                    >
+                      Send confirmation E-Mail
+                    </button>
+                  </p>
+                  </center>
                 </div>
-                </div>
+              </div>
+              <Footer />
               </div>
             ) : (
               <Component {...this.props} />

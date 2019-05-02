@@ -160,7 +160,8 @@ class TripViewBase extends Component {
       recipientName: trip.driverName,
       recipientProfileId: profileDriver.id,
       recipientUrl: profileDriver.url,
-      name: trip.startCity + " " + trip.endCity,
+      start_city: trip.startCity,
+      end_city: trip.endCity,
       recipientRead: false,
       senderRead: true,
       sender: profileVisitor.userId,
@@ -171,7 +172,39 @@ class TripViewBase extends Component {
       updated: new Date(),
       created: new Date(),
     }).then((docRef) => {
-      console.log("Conversation updated!");
+      console.log("Conversation created!");
+      this.props.history.push(`/conversations/${docRef.id}/messages`);
+    })
+    .catch((error) => {
+      console.error("Error adding message: ", error);
+    });
+  }
+
+  createReservation = (e) => {
+    const {trip, profileDriver, profileVisitor } = this.state
+    this.props.firebase.conversations().add({
+      reservation: true,
+      reservation_id: '',
+      lastMessage: '',
+      deleted: false,
+      deletedBy: '',
+      recipient: trip.driver,
+      recipientName: trip.driverName,
+      recipientProfileId: profileDriver.id,
+      recipientUrl: profileDriver.url,
+      start_city: trip.startCity,
+      end_city: trip.endCity,
+      recipientRead: false,
+      senderRead: true,
+      sender: profileVisitor.userId,
+      senderName: profileVisitor.name,
+      senderProfileId: profileVisitor.id,
+      senderUrl: profileVisitor.url,
+      tripId: trip.id,
+      updated: new Date(),
+      created: new Date(),
+    }).then((docRef) => {
+      console.log("Conversation created!");
       this.props.history.push(`/conversations/${docRef.id}/messages`);
     })
     .catch((error) => {
@@ -206,7 +239,13 @@ class TripViewBase extends Component {
           {!loading && trip &&
 
               <ul className="list-group">
-                <li className="list-group-item active-brum"><center><h3><Moment format="dddd, MMMM Do, HH:mm">{trip.leaveDateConverted}</Moment></h3></center></li>
+                <li className="list-group-item active-brum">
+                  <center>
+                    <h3>
+                    <Moment format="dddd, MMMM Do, HH:mm">{trip.leaveDateConverted}</Moment>
+                    </h3>
+                  </center>
+                </li>
                 <li className="list-group-item">
                   <Popup trigger={<img src={startPin} alt="startPin" className="image-fluid logo"/>} modal>
                     {close => (
@@ -298,7 +337,18 @@ class TripViewBase extends Component {
                   </Link>
                 </li>
                 <li className="list-group-item"><span className="list-span">Price: </span><span className="list-span font-weight-bold">{trip.price} {trip.currency}</span></li>
-                <li className="list-group-item"><span className="list-span">Seats: </span><span className="list-span font-weight-bold">{trip.seats}</span></li>
+                <li className="list-group-item">
+                  <span className="list-span">Seats: </span><span className="list-span font-weight-bold">{trip.seats}</span>
+                  <span className="list-span">
+                  <AuthUserContext.Consumer>
+                    {authUser =>
+                      (authUser.uid !== trip.driver) && (Number(trip.seats) !== 0) &&
+                      <button className="btn btn-warning" onClick={this.createReservation}>Reserve a seat</button>
+                    }
+                  </AuthUserContext.Consumer>
+                  {(Number(trip.seats) === 0) && <span className="btn btn-danger">Trip is booked!</span>}
+                  </span>
+                </li>
                 <li className="list-group-item">
                   <span><img src={trip.smokingAllowed? smoking : nosmoking} alt="Smoking" className="prefs" title={trip.smokingAllowed? "Smoking is allowed" : "No smoking, sorry."}/></span>
                   <span><img src={trip.petsAllowed? pets : nopets} alt="Pets" className="prefs" title={trip.petsAllowed? "Pets are allowed" : "No pets, sorry."}/></span>

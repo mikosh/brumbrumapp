@@ -1,11 +1,11 @@
 import React from "react";
 import { withLocalize } from "react-localize-redux";
-import { Translate } from "react-localize-redux";
+import { FaLanguage } from "react-icons/fa";
 
 const LanguageToggle = ({ languages, activeLanguage, setActiveLanguage }) => (
   <li className="nav-item dropdown">
     <button className="link-button nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <Translate id="language"/>
+      <FaLanguage />
     </button>
     <div className="dropdown-menu">
       {languages.map(lang => (
@@ -16,5 +16,6 @@ const LanguageToggle = ({ languages, activeLanguage, setActiveLanguage }) => (
     </div>
   </li>
 );
+
 
 export default withLocalize(LanguageToggle);

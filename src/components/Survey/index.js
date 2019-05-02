@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import { compose } from 'recompose';
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
 import 'bootstrap/dist/css/bootstrap.css'
@@ -8,10 +7,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 class SurveyPage extends Component {
 
-  constructor(props) {
-    super(props);
-
-  }
 
   componentWillMount() {
     console.log(this.props);
@@ -28,7 +23,7 @@ class SurveyPage extends Component {
                         type: "radiogroup",
                         name: "gender",
                         title: "Gender:",
-                        choices: ["Male", "Female", "Rather not say"],
+                        choices: ["Male", "Female"],
                         isRequired: true,
                     },
                     {
@@ -100,7 +95,6 @@ class SurveyPage extends Component {
                         "Unavailable for my trip",
                         "Lack of flexibility",
                         "No barriers"
-
                        ],
                        otherText: "Other (please describe)"
                     },

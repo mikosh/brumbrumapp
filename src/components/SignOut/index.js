@@ -1,10 +1,11 @@
 import React from 'react';
 import { withFirebase } from '../Firebase';
-import { withLocalize, Translate } from  'react-localize-redux';
+import { withLocalize } from  'react-localize-redux';
+import { FaSignOutAlt } from "react-icons/fa";
 
 const SignOutButton = ({ firebase }) => (
-  <a href='/' className="nav-link" onClick={firebase.doSignOut}>
-    <Translate id="logout_btn" />
+  <a href='/' className="nav-link" onClick={firebase.doSignOut} title="Log out">
+    <FaSignOutAlt/>
   </a>
 );
 

@@ -43,7 +43,7 @@ class PasswordChangeForm extends Component {
     return (
       <div className="password-form">
           <div className="panel">
-            <h2>Change account password</h2>
+            <h2>Change your BrumBrum password</h2>
             <hr/>
             {error && <p>{error.message}</p>}
           </div>

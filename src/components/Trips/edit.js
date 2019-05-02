@@ -54,8 +54,8 @@ class EditTrip extends Component {
           endLat: trip.endLat,
           endLon: trip.endLon,
           leaveDate: new Date(trip.leaveDate.seconds * 1000),
-          returnDate: new Date(trip.returnDate.seconds * 1000),
-          roundTrip: trip.roundTrip,
+          //returnDate: new Date(trip.returnDate.seconds * 1000),
+          //roundTrip: trip.roundTrip,
           smokingAllowed: trip.smokingAllowed,
           petsAllowed: trip.petsAllowed,
           musicAllowed: trip.musicAllowed,
@@ -104,12 +104,12 @@ class EditTrip extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
-    const { leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed, musicAllowed } = this.state;
+    //removed returnDate, roundTrip
+    const { leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed } = this.state;
 
     const updateRef = this.props.firebase.trip(this.state.key);
     updateRef.update({
-      leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed, musicAllowed
+      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed
     }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push("/trips/"+this.props.match.params.id)
@@ -120,7 +120,8 @@ class EditTrip extends Component {
   }
 
   render() {
-    const { startAddress, endAddress, startCity, endCity, leaveDate, returnDate, seats, price, currency, description, smokingAllowed, roundTrip, petsAllowed, musicAllowed } = this.state;
+    //removed returnDate, roundTrip
+    const { startAddress, endAddress, startCity, endCity, leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed } = this.state;
 
     const isInvalid = startAddress === '' || endAddress === '' || leaveDate === '' || seats === '' || price === '' || description === '';
     return (
@@ -146,7 +147,7 @@ class EditTrip extends Component {
                 value={leaveDate}
                 onChange={this.onLeaveDateChange} />
             </div>
-            <div hidden={!roundTrip} className="form-group">
+            {/*<div hidden={!roundTrip} className="form-group">
               <Flatpickr data-enable-time className="form-control" placeholder="Select leave date"
                 value={returnDate}
                 onChange={this.onReturnDateChange} />
@@ -155,7 +156,7 @@ class EditTrip extends Component {
               <span className="form-control">
                 <input type="checkbox" name="roundTrip" checked={roundTrip} value={roundTrip} onChange={this.onToggleChange} /> Round trip
               </span>
-            </div>
+            </div>*/}
             <div className="form-group">
               <span className="form-control">
                 <input type="checkbox" name="petsAllowed" onChange={this.onToggleChange} checked={petsAllowed} value={petsAllowed} /> Pets allowed
@@ -178,7 +179,8 @@ class EditTrip extends Component {
                 <option value="2">2 Seats</option>
                 <option value="3">3 Seats</option>
                 <option value="4">4 Seats</option>
-                <option value="5+">5+ Seats</option>
+                <option value="5">5 Seats</option>
+                <option value="6">6 Seats</option>
               </select>
             </div>
             <div className="form-group">

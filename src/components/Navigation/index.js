@@ -10,11 +10,18 @@ import { FaHome, FaRegComments, FaUserCircle, FaPlus, FaRoad } from "react-icons
 import LanguageToggle from './languageToggle';
 import { renderToStaticMarkup } from "react-dom/server";
 import { withLocalize } from "react-localize-redux";
+
+import { withFirebase } from '../Firebase';
 import { Translate } from "react-localize-redux";
 import globalTranslations from "../../constants/global.json";
 
+function BreakExit() {
+     this.message = "break occurred.";
+     this.name = "BreakExit";
+}
 
 class Navigation extends Component {
+
   constructor(props) {
     super(props);
 
@@ -22,7 +29,9 @@ class Navigation extends Component {
     this.closeNavbar = this.closeNavbar.bind(this);
 
     this.state = {
-      collapsed: true
+      collapsed: true,
+      newMessage: false,
+      currentUser: ''
     };
 
     const languages = [
@@ -39,6 +48,8 @@ class Navigation extends Component {
     });
   }
 
+
+
   toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed
@@ -51,12 +62,72 @@ class Navigation extends Component {
     }
   }
 
+  componentDidMount() {
+    if (localStorage.hasOwnProperty('authUser')) {
+
+        // get the key's value from localStorage
+        let value = localStorage.getItem('authUser');
+
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          //console.log(value.uid);
+          this.setState({ currentUser: value.uid });
+          this.senderListener = this.props.firebase.conversations().where("sender", "==", value.uid).onSnapshot(this.onConversationsUpdate);
+          this.recipientListener = this.props.firebase.conversations().where("recipient", "==", value.uid).onSnapshot(this.onConversationsUpdate);
+
+        } catch (e) {
+          console.log("parsing error! ", e);
+        }
+    } else {
+      console.log("User not found");
+    }
+  }
+
+  componentWillUnmount() {
+    this.senderListener();
+    this.recipientListener();
+  }
+
+  onConversationsUpdate = (querySnapshot) => {
+
+    try {
+      querySnapshot.forEach((doc) => {
+        const conversation = doc.data();
+        if (conversation.sender === this.state.currentUser && conversation.senderRead === false) {
+          this.setState({
+            newMessage: true
+          });
+          throw new BreakExit();
+        }
+        else if (conversation.recipient === this.state.currentUser && conversation.recipientRead === false) {
+          this.setState({
+            newMessage: true
+          });
+          throw new BreakExit();
+        } else {
+          this.setState({
+            newMessage: false
+          });
+        }
+      });
+    } catch(exception) {
+      // If the exception thrown is not our BreakExit type, then re throw,
+      // otherwise resume as if look with terminated
+      if (exception instanceof BreakExit === false) {
+        throw exception
+      }
+  }
+
+
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg bg-brum navbar-dark fixed-top">
         <AuthUserContext.Consumer>
           {authUser =>
-            (authUser) ?
+            (authUser && authUser.emailVerified) ?
             <div className="container-fluid">
               <Link className="navbar-brand" onClick={this.closeNavbar} to={ROUTES.TRIPS}><img className="image-fluid logo" alt="logo" src={logo} /><span id="logo"><Translate id="brumbrum" /></span></Link>
               <button className="navbar-toggler" type="button" onClick={this.toggleNavbar} >
@@ -72,7 +143,7 @@ class Navigation extends Component {
                   <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.NEW_TRIP} title="Add trip"><FaPlus /></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.CONVERSATIONS} title="Messaging"><FaRegComments /></Link>
+                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.CONVERSATIONS} title="Messaging"><FaRegComments /><span className={this.state.newMessage? 'notify-badge': ''} /></Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ACCOUNT} title="Profile"><FaUserCircle/></Link>
@@ -88,7 +159,6 @@ class Navigation extends Component {
                 <li className="nav-item">
                   <SignOutButton className="nav-link" />
                 </li>
-                <LanguageToggle />
               </ul>
               </div>
             </div>
@@ -102,7 +172,7 @@ class Navigation extends Component {
               <div className={!this.state.collapsed ? "collapse show navbar-collapse" : "collapse navbar-collapse"} id="collapsibleNavbar">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.LANDING}><Translate id="home_btn"/></Link>
+                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ABOUT}><Translate id="home_btn"/></Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.TERMS}><Translate id="terms_btn"/></Link>
@@ -124,4 +194,4 @@ class Navigation extends Component {
   }
 }
 
-export default withLocalize(Navigation);
+export default withLocalize(withFirebase(Navigation));

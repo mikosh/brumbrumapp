@@ -14,12 +14,16 @@ class TermsPage extends Component {
   render () {
     return (
     <div>
-    <header className="bg-gradient" id="terms">
-      <div className="container mt-5 transparent">
-          <h1><Translate id="title" /></h1>
-          <p className="tagline small"><Translate id="updated" /></p>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <br/>
+          <br/>
+          <center>
+            <h1 className="display-4"><Translate id="title" /></h1>
+            <p><Translate id="updated" /></p>
+          </center>
+        </div>
       </div>
-    </header>
     <div className="section section-terms">
     <div className="container">
     <h3><Translate id="title1" /></h3>

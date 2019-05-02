@@ -72,6 +72,13 @@ class Firebase {
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
 
+  doDeleteUser = () => {
+    this.auth.currentUser.delete().then(() => {
+      console.log("User deleted");
+    }).catch(function(error) {
+      console.error("Error deleting user: ", error);
+    });
+  }
 
   // *** Storage API ***
   storage = () => this.storage;
@@ -89,6 +96,8 @@ class Firebase {
 
   profiles = () => this.db.collection('profiles');
 
+  results = () => this.db.collection('survey');
+
   // *** Message API ***
 
   //message = uid => this.db.ref(`messages/${uid}`);
@@ -102,6 +111,14 @@ class Firebase {
   survey = () => this.db.collection('survey');
 
   reservations = () => this.db.collection('reservations');
+  reservation = id => this.db.collection('reservations').doc(id);
+  res_messages = id => this.db.collection('reservations').doc(id).collection('messages');
+
+
+  ratings = () => this.db.collection('reviews');
+  rating = id => this.db.collection('reviews').doc(id);
+
+  batch = () => this.db.batch();
 
 }
 

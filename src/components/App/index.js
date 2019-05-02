@@ -20,6 +20,10 @@ import TermsPage from '../Terms';
 import PrivacyPage from '../Privacy';
 import ProfilePage from '../Profile';
 import SurveyPage from '../Survey';
+import ResultsPage from '../Results';
+import ReservationsPage from '../Reservations';
+import RatingsPage from '../Ratings';
+import NotificationsPage from '../Notifications';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -30,7 +34,7 @@ const App = () => (
           <div>
             <Navigation />
             <main role="main" className="container-fluid">
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route exact path={ROUTES.ABOUT} component={LandingPage} />
             <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
             <Route
@@ -51,6 +55,10 @@ const App = () => (
             <Route exact path={ROUTES.PRIVACY} component={PrivacyPage} />
             <Route exact path={ROUTES.PROFILE} component={ProfilePage} />
             <Route exact path={ROUTES.SURVEY} component={SurveyPage} />
+            <Route exact path={ROUTES.RESULTS} component={ResultsPage} />
+            <Route exact path={ROUTES.RESERVATIONS} component={ReservationsPage} />
+            <Route exact path={ROUTES.RATINGS} component={RatingsPage} />
+            <Route exact path={ROUTES.NOTIFICATIONS} component={NotificationsPage} />
             </main>
           </div>
         </Router>
