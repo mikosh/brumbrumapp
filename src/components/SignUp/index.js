@@ -50,6 +50,7 @@ class SignUpFormBase extends Component {
             name: firstName + " " + lastName,
             age: '',
             car: '',
+            model: '',
             phone: phone,
             phoneCode: phoneCode,
             gender: '',
@@ -137,16 +138,39 @@ class SignUpFormBase extends Component {
               <div className="input-group-prepend">
                   <select name="phoneCode" onChange={this.onChange} value={phoneCode} className="form-control" >
                     <option value="+359" defaultValue>BG (+359)</option>
+                    <option value="+355">AL (+355)</option>
                     <option value="+43">AT (+43)</option>
+                    <option value="+387">BA (+387)</option>
                     <option value="+32">BE (+32)</option>
                     <option value="+41">CH (+41)</option>
+                    <option value="+357">CY (+357)</option>
+                    <option value="+420">CZ (+420)</option>
                     <option value="+49">DE (+49)</option>
+                    <option value="+45">DK (+45)</option>
+                    <option value="+372">EE (+372)</option>
+                    <option value="+38">ES (+38)</option>
+                    <option value="+358">FI (+358)</option>
                     <option value="+33">FR (+33)</option>
                     <option value="+30">GR (+30)</option>
-                    <option value="+38">ES (+38)</option>
+                    <option value="+385">HR (+385)</option>
                     <option value="+36">HU (+36)</option>
                     <option value="+39">IT (+39)</option>
+                    <option value="+370">LT (+370)</option>
+                    <option value="+371">LV (+371)</option>
+                    <option value="+373">MD (+373)</option>
+                    <option value="+382">ME (+382)</option>
+                    <option value="+389">MK (+389)</option>
+                    <option value="+31">NL (+31)</option>
+                    <option value="+47">NO (+47)</option>
+                    <option value="+48">PL (+48)</option>
+                    <option value="+351">PT (+351)</option>
                     <option value="+40">RO (+40)</option>
+                    <option value="+381">RS (+381)</option>
+                    <option value="+7">RU (+7)</option>
+                    <option value="+46">SE (+46)</option>
+                    <option value="+386">SL (+386)</option>
+                    <option value="+421">SK (+421)</option>
+                    <option value="+90">TU (+90)</option>
                     <option value="+44">UK (+44)</option>
                   </select>
               </div>

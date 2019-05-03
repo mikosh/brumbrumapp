@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from '../Session';
 import logo from '../../assets/logo.png';
-import { FaHome, FaRegComments, FaUserCircle, FaPlus, FaRoad } from "react-icons/fa";
+import { FaHome, FaRegComments, FaUserCircle, FaPlus, FaRoad, FaSignOutAlt } from "react-icons/fa";
 import LanguageToggle from './languageToggle';
 import { renderToStaticMarkup } from "react-dom/server";
 import { withLocalize } from "react-localize-redux";
@@ -24,9 +23,6 @@ class Navigation extends Component {
 
   constructor(props) {
     super(props);
-
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.closeNavbar = this.closeNavbar.bind(this);
 
     this.state = {
       collapsed: true,
@@ -50,16 +46,22 @@ class Navigation extends Component {
 
 
 
-  toggleNavbar() {
+  toggleNavbar = () => {
     this.setState({
       collapsed: !this.state.collapsed
     });
   }
 
-  closeNavbar() {
+  closeNavbar = () => {
     if (!this.state.collapsed === true) {
       this.toggleNavbar();
     }
+  }
+
+  onLogout = () => {
+    this.toggleNavbar();
+    this.props.firebase.doSignOut();
+
   }
 
   componentDidMount() {
@@ -135,31 +137,31 @@ class Navigation extends Component {
               </button>
 
               <div className={!this.state.collapsed ? "collapse show navbar-collapse" : "collapse navbar-collapse"} id="collapsibleNavbar">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.TRIPS} title="Trips"><FaHome /></Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.NEW_TRIP} title="Add trip"><FaPlus /></Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.CONVERSATIONS} title="Messaging"><FaRegComments /><span className={this.state.newMessage? 'notify-badge': ''} /></Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ACCOUNT} title="Profile"><FaUserCircle/></Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.MY_TRIPS} title="My trips"><FaRoad/></Link>
-                </li>
-                {authUser.email.includes(ROLES.ADMIN) && (
-                  <li>
-                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ADMIN}>Admin</Link>
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.TRIPS} title="Trips"><FaHome /></Link>
                   </li>
-                )}
-                <li className="nav-item">
-                  <SignOutButton className="nav-link" />
-                </li>
-              </ul>
+                  <li className="nav-item">
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.NEW_TRIP} title="Add trip"><FaPlus /></Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.CONVERSATIONS} title="Messaging"><FaRegComments /><span className={this.state.newMessage? 'notify-badge': ''} /></Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ACCOUNT} title="Profile"><FaUserCircle/></Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.MY_TRIPS} title="My trips"><FaRoad/></Link>
+                  </li>
+                  {authUser.email.includes(ROLES.ADMIN) && (
+                    <li>
+                      <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ADMIN}>Admin</Link>
+                    </li>
+                  )}
+                  <li className="nav-item">
+                    <Link className="nav-link" onClick={this.onLogout} to={ROUTES.SIGN_IN} title="Log out"><FaSignOutAlt/></Link>
+                  </li>
+                </ul>
               </div>
             </div>
             :

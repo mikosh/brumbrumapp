@@ -90,10 +90,10 @@ code {
   background: #ffffff none repeat scroll 0 0;
   border: 1px #c1c1c1 solid;
   border-radius: 6px;
-  margin: 60px auto 0px;
+  margin: 30px auto 0px;
   max-width: 600px;
   min-width: 250px;
-  padding: 50px 70px 30px 71px;
+  padding: 50px 70px 30px 70px;
 }
 
 .login-form .form-group {
@@ -769,13 +769,13 @@ a.nav-link:hover{
 
 @media screen and (min-width: 768px) {
   .list-group-item h5 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
   .list-group-item p {
     font-size: 100%;
   }
   small {
-    font-size: 80%;
+    font-size: 90%;
   }
 }
 
@@ -794,13 +794,14 @@ a.nav-link:hover{
 /* If the screen size is 767px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
   .list-group-item h5 {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   .list-group-item p {
-    font-size: 80%;
+    font-size: 100%;
+    line-height: 30px;
   }
   .list-group-item small {
-    font-size: 60%;
+    font-size: 80%;
   }
 }
 
@@ -859,6 +860,23 @@ a.nav-link:hover{
   background: linear-gradient(white, #D3D3E3);
 }
 
+@media screen and (max-width: 990px) {
+  .jumbotron h5 {
+    font-size: 1rem;
+  }
+  .jumbotron h1 {
+    font-size: 1.9rem;
+  }
+  .signin-logo {
+    width: 60px;
+    border-radius: 5px;
+  }
+  .main-div {
+    padding: 20px 25px 25px 30px;
+  }
+
+}
+
 #page-footer {
   display: block;
   color: #737373;
@@ -899,4 +917,8 @@ ul li.first{
   right: 0;
   top: 0;
   z-index: 1000;
+}
+
+#googlePlay {
+  height: 60px;
 }

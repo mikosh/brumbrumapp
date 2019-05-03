@@ -12,6 +12,8 @@ import screen5 from '../../assets/images/screen5.png';
 import iphonexlogin from '../../assets/images/iphonexlogin.png';
 import appStoreUK from '../../assets/images/appStoreUK.svg';
 import appStoreBG from '../../assets/images/appStoreBG.svg';
+import googlePlay from '../../assets/images/google-play-badge.png';
+import googlePlayBG from '../../assets/images/google-play-badgeBG.png';
 import { FaFacebookSquare, FaInstagram, FaMobileAlt, FaRocket, FaCar, FaLeaf, FaPiggyBank, FaUserFriends, FaPhoneVolume, FaMapMarkerAlt, FaRegEnvelope } from "react-icons/fa";
 import Slider from "react-slick";
 import { withLocalize } from "react-localize-redux";
@@ -48,7 +50,12 @@ class Landing extends Component {
             <p className="tagline"><Translate id="desc" /></p>
             <hr/>
             <span>
-            <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8">
+            <a href="https://play.google.com/store/apps/details?id=com.brumbrum.app" target="_blank" rel="noopener noreferrer">
+                <img id="googlePlay" src={((localStorage.getItem("lang") || "en") === "en") ? googlePlay : googlePlayBG} alt="appStore" />
+            </a>
+            </span>
+            <span>
+            <a href="https://itunes.apple.com/us/app/brumbrum/id1447012069?ls=1&mt=8" target="_blank" rel="noopener noreferrer">
                 <img src={((localStorage.getItem("lang") || "en") === "en") ? appStoreUK : appStoreBG} alt="appStore" />
             </a>
             </span><span> <Translate id="web" /> </span>
