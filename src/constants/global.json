@@ -30,5 +30,25 @@
   "language": [
     "Language",
     "Език"
+  ],
+  "add": [
+    "Add",
+    "Добави"
+  ],
+  "home": [
+    "Home",
+    "Начало"
+  ],
+  "messages": [
+    "Messages",
+    "Съобщения"
+  ],
+  "profile": [
+    "Profile",
+    "Профил"
+  ],
+  "trips": [
+    "My trips",
+    "Моите пътувания"
   ]
 }

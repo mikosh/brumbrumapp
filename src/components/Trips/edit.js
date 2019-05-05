@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { withAuthorization } from '../Session';
 import './material_green.css'
+import smoking from '../../assets/pref-smoking-yes.png';
+import nosmoking from '../../assets/pref-smoking-no.png';
+import pets from '../../assets/pref-pet-yes.png';
+import nopets from '../../assets/pref-pet-no.png';
+import music from '../../assets/pref-music-yes.png';
+import nomusic from '../../assets/pref-music-no.png';
 
 import Flatpickr from 'react-flatpickr'
 
@@ -159,17 +165,12 @@ class EditTrip extends Component {
             </div>*/}
             <div className="form-group">
               <span className="form-control">
-                <input type="checkbox" name="petsAllowed" onChange={this.onToggleChange} checked={petsAllowed} value={petsAllowed} /> Pets allowed
-              </span>
-            </div>
-            <div className="form-group">
-              <span className="form-control">
-                <input type="checkbox" name="smokingAllowed" onChange={this.onToggleChange} checked={smokingAllowed} value={smokingAllowed} /> Smoking allowed
-              </span>
-            </div>
-            <div className="form-group">
-              <span className="form-control">
-                <input type="checkbox" name="musicAllowed" onChange={this.onToggleChange} checked={musicAllowed} value={musicAllowed} /> Music
+              <input type="checkbox" name="petsAllowed" onChange={this.onToggleChange} checked={petsAllowed} value={petsAllowed} />
+              <img src={petsAllowed? pets : nopets} alt="Pets" className="prefs" title={petsAllowed? "Pets are allowed" : "No pets, sorry."}/>
+              <input type="checkbox" name="smokingAllowed" onChange={this.onToggleChange} checked={smokingAllowed} value={smokingAllowed} />
+              <img src={smokingAllowed? smoking : nosmoking} alt="Smoking" className="prefs" title={smokingAllowed? "Smoking is allowed" : "No smoking, sorry."}/>
+              <input type="checkbox" name="musicAllowed" onChange={this.onToggleChange} checked={musicAllowed} value={musicAllowed} />
+              <img src={musicAllowed? music : nomusic} alt="Music" className="prefs" title={musicAllowed? "Music playing" : "No music, sorry."}/>
               </span>
             </div>
             <div className="form-group">

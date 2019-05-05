@@ -43,7 +43,7 @@ class TripViewBase extends Component {
       const trip = doc.data();
       trip.id = doc.id;
       trip.leaveDateConverted = trip.leaveDate.toDate().toISOString();
-      trip.returnDateConverted = trip.returnDate.toDate().toISOString();
+      trip.returnDateConverted = (trip.returnDate && trip.returnDate.toDate().toISOString());
       trip.distance = "calculating...";
       trip.duration = "calculating...";
 

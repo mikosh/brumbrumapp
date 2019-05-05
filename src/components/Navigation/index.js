@@ -139,19 +139,29 @@ class Navigation extends Component {
               <div className={!this.state.collapsed ? "collapse show navbar-collapse" : "collapse navbar-collapse"} id="collapsibleNavbar">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.TRIPS} title="Trips"><FaHome /></Link>
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.TRIPS} title="Trips">
+                      <FaHome /><span className="nav-text"><Translate id="home"/></span>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.NEW_TRIP} title="Add trip"><FaPlus /></Link>
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.NEW_TRIP} title="Add trip">
+                      <FaPlus /><span className="nav-text"><Translate id="add"/></span>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.CONVERSATIONS} title="Messaging"><FaRegComments /><span className={this.state.newMessage? 'notify-badge': ''} /></Link>
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.CONVERSATIONS} title="Messaging">
+                      <FaRegComments /><span className={this.state.newMessage? 'notify-badge': ''} /><span className="nav-text"><Translate id="messages"/></span>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ACCOUNT} title="Profile"><FaUserCircle/></Link>
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.ACCOUNT} title="Profile">
+                      <FaUserCircle/><span className="nav-text"><Translate id="profile"/></span>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.MY_TRIPS} title="My trips"><FaRoad/></Link>
+                    <Link className="nav-link" onClick={this.closeNavbar} to={ROUTES.MY_TRIPS} title="My trips">
+                      <FaRoad/><span className="nav-text"><Translate id="trips"/></span>
+                    </Link>
                   </li>
                   {authUser.email.includes(ROLES.ADMIN) && (
                     <li>
@@ -159,7 +169,9 @@ class Navigation extends Component {
                     </li>
                   )}
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={this.onLogout} to={ROUTES.SIGN_IN} title="Log out"><FaSignOutAlt/></Link>
+                    <Link className="nav-link" onClick={this.onLogout} to={ROUTES.SIGN_IN} title="Log out">
+                      <FaSignOutAlt/><span className="nav-text"><Translate id="logout_btn"/></span>
+                    </Link>
                   </li>
                 </ul>
               </div>

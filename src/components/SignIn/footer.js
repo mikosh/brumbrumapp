@@ -22,6 +22,7 @@ const Footer = ({ setActiveLanguage }) => (
             <li><Link className="brumbrum-a" to={ROUTES.TERMS} title={translate('terms_btn')}><Translate id="terms_btn" /></Link></li>
             <li><Link className="brumbrum-a" to={ROUTES.PRIVACY} title={translate('privacy_btn')}><Translate id="privacy_btn" /></Link></li>
           </ul>
+          <br/>
           <div>BrumBrum © 2019</div>
           <br/>
         </small>

@@ -43,7 +43,7 @@ class TripsPage extends Component {
 
   filterByDate(item) {
     const leaveTime = item.leaveDate.seconds *1e3;
-    const returnTime = item.returnDate.seconds * 1e3;
+    const returnTime = item.roundTrip? item.returnDate.seconds * 1e3 : null;
     const now = new Date().getTime();
     if ((!item.roundTrip && leaveTime >= now) || (item.roundTrip && returnTime >= now)) {
       return true;
@@ -66,7 +66,7 @@ class TripsPage extends Component {
       const tripsObject = doc.data();
       tripsObject.id = doc.id;
       tripsObject.leaveDateFormated = tripsObject.leaveDate.toDate().toISOString();
-      tripsObject.returnDateFormated = tripsObject.returnDate.toDate().toISOString();
+      //tripsObject.returnDateFormated = tripsObject.returnDate.toDate().toISOString();
       trips.push(tripsObject);
     });
     trips = trips.filter(this.filterByDate);

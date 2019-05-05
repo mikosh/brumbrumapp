@@ -27,7 +27,8 @@ class AccountPage extends Component {
       isUploading: false,
       progress: 0,
       batch: '',
-      currentUser: ''
+      currentUser: '',
+      message: ''
     };
   }
 
@@ -90,7 +91,7 @@ class AccountPage extends Component {
     updateRef.update({
       name, firstName, lastName, age, gender, car, location, phone, phoneCode, url, model
     }).then((docRef) => {
-
+      this.setState({message: "Your profile is updated."});
     })
     .catch((error) => {
       console.error("Error adding document: ", error);
@@ -150,9 +151,14 @@ class AccountPage extends Component {
   }
 
   render () {
-    const { url, firstName, lastName, age, location, car, phone, phoneCode, gender, model } = this.state;
+    const { url, firstName, lastName, age, location, car, phone, phoneCode, gender, model, message } = this.state;
     return (
       <div className="container">
+      { (message && message.length !== 0)?
+        <div className="row page alert alert-info" role="alert">
+          <p>{message}</p>
+        </div>
+        : "" }
       <div className="row justify-content-md-center page">
         <div className="col-lg-6">
           <div className="panel panel-default account-page">
@@ -163,7 +169,7 @@ class AccountPage extends Component {
                 <p>Progress: {this.state.progress}</p>
               }
               <br/>
-              <label>
+              <label className="brumbrum-a">
                 Change profile photo
                 <FirebaseFileUploader
                   hidden

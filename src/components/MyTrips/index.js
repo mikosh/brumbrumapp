@@ -30,7 +30,7 @@ class MyTripsPage extends Component {
       const tripsObject = doc.data();
       tripsObject.id = doc.id;
       tripsObject.leaveDateFormated = tripsObject.leaveDate.toDate().toISOString();
-      tripsObject.returnDateFormated = tripsObject.returnDate.toDate().toISOString();
+      tripsObject.returnDateFormated = (tripsObject.returnDate && tripsObject.returnDate.toDate().toISOString());
       (tripsObject.leaveDate.seconds * 1000 > Date.now()) ? trips.push(tripsObject) : pastTrips.push(tripsObject);
 
     });
