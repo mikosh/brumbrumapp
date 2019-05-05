@@ -106,15 +106,15 @@ class ProfilePage extends Component {
               <StarRatings
                 rating={Number(stars) + 0.0}
                 starRatedColor="orange"
+                starHoverColor="orange"
+                starDimension="35px"
                 numberOfStars={5}
                 name='star'
               />
               <div>
-                <span>Rating {stars} - </span> <span> <Link to={`/ratings/${userId}`} > {ratings.length} Reviews</Link></span>
-
+                <span>Rating {stars} - </span> <span> <Link className="brumbrum-a" to={`/ratings/${userId}`} > {ratings.length} Reviews</Link></span>
               </div>
             </center>
-
             <br/>
             <div className="panel-body">
                 <div className="input-group mb-3">

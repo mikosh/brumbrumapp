@@ -4,6 +4,8 @@ import PasswordChangeForm from '../PasswordChange';
 import { withAuthorization, withEmailVerification } from '../Session';
 import profile from '../../assets/profile.png';
 import FirebaseFileUploader from '../FileUploader';
+import StarRatings from 'react-star-ratings';
+import { Link } from 'react-router-dom';
 
 class AccountPage extends Component {
 
@@ -28,7 +30,9 @@ class AccountPage extends Component {
       progress: 0,
       batch: '',
       currentUser: '',
-      message: ''
+      message: '',
+      ratings: [],
+      stars: ''
     };
   }
 
@@ -75,9 +79,19 @@ class AccountPage extends Component {
 
   onRatingsUpdate = (querySnapshot) => {
     var batch = this.state.batch;
+    let ratings = this.state.ratings;
+
     querySnapshot.forEach((doc) => {
       batch.delete(this.props.firebase.rating(doc.id));
       this.setState({batch});
+
+      const rating = doc.data();
+      if (!Array.prototype.includes(this.ratings, rating)) {
+        ratings.push(rating);
+        let totalAmount = 0;
+        ratings.forEach( data => totalAmount = totalAmount + data.star);
+        this.setState({ratings, stars: (totalAmount/ratings.length).toFixed(1)});
+      }
     });
   }
 
@@ -151,7 +165,7 @@ class AccountPage extends Component {
   }
 
   render () {
-    const { url, firstName, lastName, age, location, car, phone, phoneCode, gender, model, message } = this.state;
+    const { url, firstName, lastName, age, location, car, phone, phoneCode, gender, model, message, userId, ratings, stars } = this.state;
     return (
       <div className="container">
       { (message && message.length !== 0)?
@@ -176,13 +190,26 @@ class AccountPage extends Component {
                   accept="image/*"
                   name="avatar"
                   filename="profile"
-                  storageRef={this.props.firebase.storage.ref('users/' + this.state.userId)}
+                  storageRef={this.props.firebase.storage.ref('users/' + userId)}
                   onUploadStart={this.handleUploadStart}
                   onUploadError={this.handleUploadError}
                   onUploadSuccess={this.handleUploadSuccess}
                   onProgress={this.handleProgress}
                 />
               </label>
+            </center>
+            <center>
+              <StarRatings
+                rating={Number(stars) + 0.0}
+                starRatedColor="orange"
+                starHoverColor="orange"
+                starDimension="35px"
+                numberOfStars={5}
+                name='star'
+              />
+              <div>
+                <span>Rating {stars} - </span> <span> <Link className="brumbrum-a" to={`/ratings/${userId}`} > {ratings.length} Reviews</Link></span>
+              </div>
             </center>
             </div>
             <br/>

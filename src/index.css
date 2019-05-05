@@ -55,6 +55,7 @@ body, html {
 .width30 {
   display: inline-block !important;
   width: 30% !important;
+  min-width: 110px !important;
 }
 .width40 {
   display: inline-block !important;
@@ -68,6 +69,7 @@ body, html {
 .width10 {
   display: inline-block !important;
   width: 10% !important;
+  min-width: 50px !important;
 }
 
 code {
