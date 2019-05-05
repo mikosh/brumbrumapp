@@ -165,7 +165,7 @@ class NewTrip extends Component {
     //removed returnDate, roundTrip
     const { startAddress, startCity, startLat, startLon, endAddress, endCity, endLat, endLon,
        smokingAllowed, petsAllowed, musicAllowed, deleted, driver, driverName, driverAge,
-       leaveDate, seats, price, currency, description, imageUrl, daily } = this.state;
+       leaveDate, seats, price, currency, description, imageUrl, daily, returnDate, roundTrip } = this.state;
 
     this.ref.add({
       startAddress,
@@ -177,8 +177,8 @@ class NewTrip extends Component {
       endLat,
       endLon,
       leaveDate,
-      //returnDate,
-      //roundTrip,
+      returnDate,
+      roundTrip,
       smokingAllowed,
       petsAllowed,
       musicAllowed,

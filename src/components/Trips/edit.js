@@ -111,11 +111,11 @@ class EditTrip extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     //removed returnDate, roundTrip
-    const { leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed } = this.state;
+    const { leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed, returnDate, roundTrip } = this.state;
 
     const updateRef = this.props.firebase.trip(this.state.key);
     updateRef.update({
-      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed
+      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed, returnDate, roundTrip
     }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push("/trips/"+this.props.match.params.id)
