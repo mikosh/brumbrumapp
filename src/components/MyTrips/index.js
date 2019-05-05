@@ -129,9 +129,9 @@ class MyTripsPage extends Component {
     return (
       <div className="container">
         <div className="page">
-          <TripsList title="upcoming trips" loading={loading} trips={trips} ratings={false} />
+          <TripsList title="Upcoming trips" loading={loading} trips={trips} ratings={false} />
           <br/>
-          <TripsList title="past trips" loading={loading} trips={pastTrips} ratings={true} />
+          <TripsList title="Past trips" loading={loading} trips={pastTrips} ratings={true} />
         </div>
       </div>
     );
@@ -149,8 +149,8 @@ const TripsList = ({ title, loading, trips, ratings}) => (
       : "" }
     <div className="list-group">
       {trips.map(trip => (
-        <div className=" flex-column align-items-start" key={trip.id} >
-        <Link className="list-group-item list-group-item-action" to={`/trips/${trip.id}`} >
+        <div key={trip.id} className="conv-container">
+        <Link className="flex-column align-items-start list-group-item list-group-item-action" to={`/trips/${trip.id}`} >
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1">
             <img src={trip.imageUrl? trip.imageUrl : profile} alt="Avatar" className="avatar"/>
@@ -176,7 +176,10 @@ const TripsList = ({ title, loading, trips, ratings}) => (
           }
 
         </Link>
-        {ratings && <div className="reservationButtons"><Link className="btn btn-warning btn-sm" to={`/reservations`} >Rate your trip</Link></div>}
+        <div className="rating-button">
+          {ratings && <div className="reservationButtons"><Link className="btn btn-warning btn-sm" to={`/reservations`} >Rate your trip</Link></div>}
+        </div>
+
         </div>
       ))
       }

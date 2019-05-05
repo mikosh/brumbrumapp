@@ -923,6 +923,13 @@ ul li.first{
   z-index: 1000;
 }
 
+.rating-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 1000;
+}
+
 #googlePlay {
   height: 60px;
 }
@@ -932,6 +939,14 @@ ul li.first{
   margin-left: 5px;
 }
 @media screen and (max-width: 990px) {
+  h3 {
+    font-size: 1.2rem !important;
+  }
+
+  h5 {
+    font-size: 0.9rem !important;
+  }
+
   .nav-text {
     display: inline-block;
   }
