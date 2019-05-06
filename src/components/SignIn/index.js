@@ -55,12 +55,6 @@ class SignInFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  componentDidMount() {
-    if (localStorage.hasOwnProperty('authUser')) {
-      this.setState({ ...INITIAL_STATE });
-      this.props.history.push(ROUTES.TRIPS);
-    }
-  }
 
   render() {
     const { email, password, error } = this.state;
