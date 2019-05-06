@@ -947,6 +947,15 @@ ul li.first{
     font-size: 0.9rem !important;
   }
 
+  .prefs {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .list-group-item {
+    padding: 0.45rem !important;
+  }
+
   .nav-text {
     display: inline-block;
   }
@@ -975,6 +984,10 @@ ul li.first{
     border-radius: 0.2rem !important;
   }
 
+}
+
+.second-el {
+  margin-left: 25px;
 }
 
 input[type="checkbox"] {

@@ -58,7 +58,7 @@ class RatingsPage extends Component {
             { (loading) && <p>Loading...</p> }
             { (!loading && ratings && ratings.length === 0) &&
               <div className="alert alert-info" role="alert">
-                <p>You have no reviews.</p>
+                <p>The user has no reviews.</p>
               </div>
             }
             <div className="list-group">

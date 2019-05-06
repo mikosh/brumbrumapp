@@ -39,7 +39,9 @@ const INITIAL_STATE = {
   currency: 'лв.',
   seats: '1',
   description: '',
-  imageUrl: ''
+  imageUrl: '',
+  car: '',
+  model: ''
 };
 
 class NewTrip extends Component {
@@ -133,7 +135,9 @@ class NewTrip extends Component {
         driver: profile.userId,
         driverName: profile.name,
         driverAge: profile.age,
-        imageUrl: profile.url
+        imageUrl: profile.url,
+        car: profile.car,
+        model: profile.model
       });
     }
  }
@@ -165,7 +169,7 @@ class NewTrip extends Component {
     //removed returnDate, roundTrip
     const { startAddress, startCity, startLat, startLon, endAddress, endCity, endLat, endLon,
        smokingAllowed, petsAllowed, musicAllowed, deleted, driver, driverName, driverAge,
-       leaveDate, seats, price, currency, description, imageUrl, daily, returnDate, roundTrip } = this.state;
+       leaveDate, seats, price, currency, description, imageUrl, daily, returnDate, roundTrip, car, model } = this.state;
 
     this.ref.add({
       startAddress,
@@ -191,7 +195,9 @@ class NewTrip extends Component {
       seats,
       description,
       imageUrl,
-      daily
+      daily,
+      car,
+      model
     }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push(ROUTES.TRIPS)
@@ -213,7 +219,7 @@ class NewTrip extends Component {
           <div className="panel-heading">
           <center>
             <h3 className="panel-title">
-              Where do you go next?
+              New trip
             </h3>
           </center>
           </div>

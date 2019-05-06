@@ -13,6 +13,7 @@ import music from '../../assets/pref-music-yes.png';
 import nomusic from '../../assets/pref-music-no.png';
 import LocationSearchInput from './places';
 import { getLatLng } from 'react-places-autocomplete';
+import { FaCarSide } from "react-icons/fa";
 
 // calculate air distance between two points
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -195,6 +196,7 @@ const TripsList = ({ loading, trips }) => (
             <h5 className="mb-1">
             <img src={trip.imageUrl? trip.imageUrl : profile} alt="Avatar" className="avatar"/>
             <span> {trip.driverName}, {trip.driverAge}</span></h5>
+            <span>{trip.car} {trip.model} <FaCarSide className="prefs" /></span>
             <h5>{trip.price} {trip.currency}</h5>
           </div>
           <p className="mb-1">

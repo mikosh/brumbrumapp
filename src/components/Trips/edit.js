@@ -11,30 +11,19 @@ import nomusic from '../../assets/pref-music-no.png';
 import Flatpickr from 'react-flatpickr'
 
 const INITIAL_STATE = {
-  key: '',
+  trip_id: '',
   startAddress: '',
   startCity: '',
-  startLat: '',
-  startLon: '',
   endAddress: '',
   endCity: '',
-  endLat: '',
-  endLon: '',
   leaveDate: '',
-  returnDate: new Date(),
-  roundTrip: false,
-  smokingAllowed: false,
-  petsAllowed: false,
-  musicAllowed: false,
-  deleted: false,
-  driver: '',
-  driverName: '',
-  driverAge: '',
+  seats: '',
+  currency: '',
   price: '',
-  currency: 'лв.',
-  seats: '1',
-  description: '',
-  imageUrl: ''
+  smokingAllowed: '',
+  petsAllowed: '',
+  musicAllowed: '',
+  description: ''
 };
 
 class EditTrip extends Component {
@@ -49,32 +38,9 @@ class EditTrip extends Component {
     ref.get().then((doc) => {
       if (doc.exists) {
         const trip = doc.data();
-        this.setState({
-          key: doc.id,
-          startAddress: trip.startAddress,
-          startCity: trip.startCity,
-          startLat: trip.startLat,
-          startLon: trip.startLon,
-          endAddress: trip.endAddress,
-          endCity: trip.endCity,
-          endLat: trip.endLat,
-          endLon: trip.endLon,
-          leaveDate: new Date(trip.leaveDate.seconds * 1000),
-          //returnDate: new Date(trip.returnDate.seconds * 1000),
-          //roundTrip: trip.roundTrip,
-          smokingAllowed: trip.smokingAllowed,
-          petsAllowed: trip.petsAllowed,
-          musicAllowed: trip.musicAllowed,
-          deleted: trip.deleted,
-          driver: trip.driver,
-          driverName: trip.driverName,
-          driverAge: trip.driverAge,
-          price: trip.price,
-          currency: trip.currency,
-          seats: trip.seats,
-          description: trip.description,
-          imageUrl: trip.imageUrl
-        });
+        trip.id = doc.id;
+        this.setState({trip_id: trip.id, startAddress: trip.startAddress, startCity: trip.startCity, endAddress: trip.endAddress, endCity: trip.endCity, leaveDate: trip.leaveDate, seats: trip.seats, price: trip.price, currency: trip.currency,
+        smokingAllowed: trip.smokingAllowed, petsAllowed: trip.petsAllowed, musicAllowed: trip.musicAllowed, description: trip.description});
       } else {
         console.log("No such document!");
       }
@@ -83,7 +49,6 @@ class EditTrip extends Component {
 
   onChange = (e) => {
     const state = this.state;
-    console.log("Print: ", e.target.name);
     state[e.target.name] = e.target.value;
     this.setState(state);
   }
@@ -111,14 +76,13 @@ class EditTrip extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     //removed returnDate, roundTrip
-    const { leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed, returnDate, roundTrip } = this.state;
+    const { trip_id, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed } = this.state;
 
-    const updateRef = this.props.firebase.trip(this.state.key);
+    const updateRef = this.props.firebase.trip(trip_id);
     updateRef.update({
-      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed, returnDate, roundTrip
-    }).then((docRef) => {
+      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
-      this.props.history.push("/trips/"+this.props.match.params.id)
+      this.props.history.push("/trips/"+ trip_id)
     })
     .catch((error) => {
       console.error("Error adding document: ", error);
@@ -126,10 +90,10 @@ class EditTrip extends Component {
   }
 
   render() {
-    //removed returnDate, roundTrip
-    const { startAddress, endAddress, startCity, endCity, leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed } = this.state;
 
-    const isInvalid = startAddress === '' || endAddress === '' || leaveDate === '' || seats === '' || price === '' || description === '';
+    const { startAddress, startCity, endAddress, endCity, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed } = this.state;
+
+    const isInvalid = leaveDate === '' || seats === '' || price === '' || description === '';
     return (
       <div className="container">
       <div className="panel panel-default page">
@@ -150,7 +114,7 @@ class EditTrip extends Component {
             </div>
             <div className="form-group">
               <Flatpickr data-enable-time className="form-control" placeholder="Select leave date"
-                value={leaveDate}
+                value={leaveDate.seconds * 1000}
                 onChange={this.onLeaveDateChange} />
             </div>
             {/*<div hidden={!roundTrip} className="form-group">

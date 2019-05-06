@@ -18,6 +18,7 @@ import Popup from "reactjs-popup";
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Map from './MapComponent';
+import { FaCarSide } from "react-icons/fa";
 
 const TripViewPage = () => (
   <TripView />
@@ -246,7 +247,7 @@ class TripViewBase extends Component {
                     </h3>
                   </center>
                 </li>
-                <li className="list-group-item">
+                <li className="list-group-item" title="Start location" >
                   <Popup trigger={<img src={startPin} alt="startPin" className="image-fluid logo"/>} modal>
                     {close => (
                       <div>
@@ -305,7 +306,7 @@ class TripViewBase extends Component {
                   </Popup>
                   </li>
                 <li className="list-group-item"><img src={strip} alt="strip" className="image-fluid logo" /><span className="list-span">Estimated time: {trip.duration}</span></li>
-                <li className="list-group-item">
+                <li className="list-group-item" title="End location">
                   <Popup trigger={<img src={endPin} alt="endPin" className="image-fluid logo" />} modal>
                     {close => (
                       <div>
@@ -353,6 +354,7 @@ class TripViewBase extends Component {
                   <span><img src={trip.smokingAllowed? smoking : nosmoking} alt="Smoking" className="prefs" title={trip.smokingAllowed? "Smoking is allowed" : "No smoking, sorry."}/></span>
                   <span><img src={trip.petsAllowed? pets : nopets} alt="Pets" className="prefs" title={trip.petsAllowed? "Pets are allowed" : "No pets, sorry."}/></span>
                   <span><img src={trip.musicAllowed? music : nomusic} alt="Music" className="prefs" title={trip.musicAllowed? "Music in the car" : "NO music, sorry."}/></span>
+                  <span className="second-el" title="Driver's car" >{trip.car} {trip.model} </span><FaCarSide className="prefs" /> 
                 </li>
                 <li className="list-group-item"><span className="list-span">Trip description: </span><span className="list-span font-weight-lighter">{trip.description}</span></li>
                 <li className="list-group-item">
