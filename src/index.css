@@ -947,6 +947,10 @@ ul li.first{
     font-size: 0.9rem !important;
   }
 
+  h6 {
+    font-size: 0.8rem !important;
+  }
+
   .prefs {
     width: 20px !important;
     height: 20px !important;
@@ -982,6 +986,23 @@ ul li.first{
     font-size: 0.875rem !important;
     line-height: 1.5 !important;
     border-radius: 0.2rem !important;
+  }
+
+  button.btn-primary {
+    padding: 0 !important;
+    font-size: 0.775rem !important;
+    font-weight: 400 !important;
+    height: 2.5rem !important;
+    line-height: 2.5rem !important;
+    border-radius: 0.2rem !important;
+  }
+
+  input.form-control, select.form-control {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.775rem !important;
+    font-weight: 400 !important;
+    height: 2.5rem !important;
+    line-height: 2.5rem !important;
   }
 
 }

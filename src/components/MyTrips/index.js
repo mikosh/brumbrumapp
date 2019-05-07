@@ -156,7 +156,7 @@ const TripsList = ({ title, loading, trips, ratings}) => (
             <h5 className="mb-1">
             <img src={trip.imageUrl? trip.imageUrl : profile} alt="Avatar" className="avatar"/>
             <span> {trip.driverName}, {trip.driverAge}</span></h5>
-            <span>{trip.car} {trip.model} <FaCarSide className="prefs" /></span>
+            <h6>{trip.car} {trip.model} <FaCarSide className="prefs" /></h6>
             <h5>{trip.price} {trip.currency}</h5>
           </div>
           {trip.leaveDate.seconds * 1000 > Date.now() && <div className="reservationButtons"><Moment date={trip.leaveDateFormated} fromNow /></div>}
