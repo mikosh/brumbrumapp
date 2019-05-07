@@ -35,7 +35,7 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const { firstName, lastName, phoneCode, phone, email, passwordOne } = this.state;
+    const { firstName, lastName, phoneCode, phone, email, passwordOne, age } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -49,7 +49,7 @@ class SignUpFormBase extends Component {
             firstName: firstName,
             lastName: lastName,
             name: firstName + " " + lastName,
-            age: '',
+            age: age,
             car: '',
             model: '',
             phone: phone,
@@ -191,6 +191,11 @@ class SignUpFormBase extends Component {
                     <option value="63">63</option>
                     <option value="64">64</option>
                     <option value="65">65</option>
+                    <option value="66">66</option>
+                    <option value="67">67</option>
+                    <option value="68">68</option>
+                    <option value="69">69</option>
+                    <option value="70">70</option>
                   </select>
               </div>
             </div>
