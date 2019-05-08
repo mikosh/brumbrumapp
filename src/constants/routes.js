@@ -1,7 +1,7 @@
 export const ABOUT = '/brumbrum';
 export const SIGN_UP = '/signup';
-export const SIGN_IN = '/';
-export const TRIPS = '/trips';
+export const SIGN_IN = '/signin';
+export const TRIPS = '/';
 export const MY_TRIPS = '/my_trips';
 export const CONVERSATIONS = '/conversations';
 export const MESSAGES = '/conversations/:id/messages';

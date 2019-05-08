@@ -31,8 +31,8 @@ class Firebase {
 
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
-      /*if (authUser) {
-        this.profiles().where("userId", "==", authUser.uid).get()
+      if (authUser) {
+        /*this.profiles().where("userId", "==", authUser.uid).get()
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                   const userProfile = doc.data();
@@ -46,13 +46,13 @@ class Firebase {
                     facebook: true,
                     ...userProfile,
                   };
-
+          */
                   next(authUser);
-              });
-          });
+          //    });
+          //});
       } else {
         fallback();
-      }*/
+      }
     });
 
   // *** Auth API ***
