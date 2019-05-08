@@ -69,7 +69,7 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
 
   doSignInWithFacebook = () =>
-    this.auth.signInWithPopup(this.facebookProvider);
+    this.auth.signInWithRedirect(this.facebookProvider);
 
   doSignOut = () => this.auth.signOut();
 
