@@ -11,12 +11,33 @@ import bgTranslations from "./bg.signin.json";
 import enTranslations from "./en.signin.json";
 import * as ROUTES from '../../constants/routes';
 import logo from '../../assets/logo-sq.png';
+import fb_login from '../../assets/images/loginWithFB.png';
 import Footer from './footer';
 
 
 
 const SignInPage = () => (
-  <SignInForm />
+  <div>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <br/>
+          <br/>
+          <center>
+            <img className="signin-logo image-fluid" alt="BrumBrum" src={logo} />
+            <h1 className="display-4"><Translate id="title" /></h1>
+            <h5><Translate id="subtitle" /></h5>
+          </center>
+          <hr className="my-4"/>
+          <div className="login-form">
+            <div className="main-div">
+              <SignInForm />
+              <SignInFacebook />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+  </div>
 );
 
 const INITIAL_STATE = {
@@ -62,63 +83,102 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
 
     return (
-        <div>
-            <div className="jumbotron jumbotron-fluid">
-              <div className="container">
-              <br/>
-              <br/>
-              <center>
-              <img className="signin-logo image-fluid" alt="BrumBrum" src={logo} />
-              <h1 className="display-4"><Translate id="title" /></h1>
-              <h5><Translate id="subtitle" /></h5>
-              </center>
-              <hr className="my-4"/>
-              <div className="login-form">
-                <div className="main-div">
-                  <div className="panel">
-                    {error && <p>{error.message}</p>}
-                  </div>
-                  <Translate>
-                  {({translate}) =>
-                  <form onSubmit={this.onSubmit} id="Login">
-                    <div className="form-group">
-
-                        <input className="form-control"
-                          name="email"
-                          value={email}
-                          onChange={this.onChange}
-                          type="text"
-                          placeholder={translate('email')}
-                        />
-
-                    </div>
-                    <div className="form-group">
-                      <input className="form-control"
-                        name="password"
-                        value={password}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder={translate('password')}
-                      />
-                    </div>
-                    <div className="forgot">
-                      <PasswordForgetLink />
-                    </div>
-                    <button className="btn btn-primary" disabled={isInvalid} type="submit">
-                      {translate('login_btn')}
-                    </button>
-                  </form>
-                  }
-                  </Translate>
-                  <br/>
-                  <hr/>
-                  <SignUpLink />
-                </div>
-              </div>
+      <div>
+        <div className="panel">
+          {error && <p>{error.message}</p>}
+        </div>
+        <Translate>
+          {({translate}) =>
+          <form onSubmit={this.onSubmit} id="Login">
+            <div className="form-group">
+              <input className="form-control"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="text"
+                placeholder={translate('email')}
+              />
             </div>
-          </div>
-          <Footer />
+            <div className="form-group">
+              <input className="form-control"
+                name="password"
+                value={password}
+                onChange={this.onChange}
+                type="password"
+                placeholder={translate('password')}
+              />
+            </div>
+            <div className="forgot">
+              <PasswordForgetLink />
+            </div>
+            <button className="btn btn-primary" disabled={isInvalid} type="submit">
+              {translate('login_btn')}
+            </button>
+          </form>
+          }
+        </Translate>
+        <br/>
+        <hr/>
+        <SignUpLink />
       </div>
+    );
+  }
+}
+
+class SignInFacebookBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { error: null };
+  }
+
+  onSubmit = event => {
+    this.props.firebase
+      .doSignInWithFacebook()
+      .then(socialAuthUser => {
+        if (socialAuthUser.additionalUserInfo.isNewUser){
+        // Create a user profile in your Firebase realtime database
+          this.props.firebase
+            .profile(socialAuthUser.user.uid)
+            .set({
+              userId: socialAuthUser.user.uid,
+              created: new Date(),
+              firstName: socialAuthUser.additionalUserInfo.profile.first_name,
+              lastName: socialAuthUser.additionalUserInfo.profile.last_name,
+              name: socialAuthUser.additionalUserInfo.profile.first_name + " " + socialAuthUser.additionalUserInfo.profile.last_name,
+              age: '',
+              car: '',
+              model: '',
+              phone: '',
+              phoneCode: '',
+              gender: '',
+              location: '',
+              url: "https://graph.facebook.com/"+ socialAuthUser.additionalUserInfo.profile.id + "/picture?type=large",
+              facebookVerified: true
+            });
+
+        }
+
+      }).then(() => {
+        this.setState({ ...INITIAL_STATE });
+        this.props.history.push(ROUTES.TRIPS);
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+
+    event.preventDefault();
+  };
+
+  render() {
+    const { error } = this.state;
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <button type="submit" className="btn" title="Log in with Facebook"><img className="logo image-fluid" alt="Log in with Facebook" src={fb_login} /></button>
+
+        {error && <p>{error.message}</p>}
+      </form>
     );
   }
 }
@@ -128,6 +188,12 @@ const SignInForm = compose(
   withFirebase, withLocalize
 )(SignInFormBase);
 
+const SignInFacebook = compose(
+  withRouter,
+  withFirebase,
+)(SignInFacebookBase);
+
+
 export default SignInPage;
 
-export { SignInForm };
+export { SignInForm, SignInFacebook };

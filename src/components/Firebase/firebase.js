@@ -1,7 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore'
-import 'firebase/storage'
+import 'firebase/firestore';
+import 'firebase/storage';
 
 
 const config = {
@@ -22,6 +22,8 @@ class Firebase {
     this.db = app.firestore();
     this.storage = app.storage();
 
+    this.facebookProvider = new app.auth.FacebookAuthProvider();
+
     this.db.settings({
       timestampsInSnapshots: true
     });
@@ -29,7 +31,7 @@ class Firebase {
 
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
-      if (authUser) {
+      /*if (authUser) {
         this.profiles().where("userId", "==", authUser.uid).get()
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
@@ -41,6 +43,7 @@ class Firebase {
                     email: authUser.email,
                     emailVerified: authUser.emailVerified,
                     providerData: authUser.providerData,
+                    facebook: true,
                     ...userProfile,
                   };
 
@@ -49,7 +52,7 @@ class Firebase {
           });
       } else {
         fallback();
-      }
+      }*/
     });
 
   // *** Auth API ***
@@ -64,6 +67,9 @@ class Firebase {
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
+
+  doSignInWithFacebook = () =>
+    this.auth.signInWithPopup(this.facebookProvider);
 
   doSignOut = () => this.auth.signOut();
 

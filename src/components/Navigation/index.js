@@ -129,7 +129,7 @@ class Navigation extends Component {
       <nav className="navbar navbar-expand-lg bg-brum navbar-dark fixed-top">
         <AuthUserContext.Consumer>
           {authUser =>
-            (authUser && authUser.emailVerified) ?
+            (authUser && (authUser.emailVerified || authUser.providerData[0].providerId === "facebook.com")) ?
             <div className="container-fluid">
               <Link className="navbar-brand" onClick={this.closeNavbar} to={ROUTES.TRIPS}><img className="image-fluid logo" alt="logo" src={logo} /><span id="logo"><Translate id="brumbrum" /></span></Link>
               <button className="navbar-toggler" type="button" onClick={this.toggleNavbar} >
