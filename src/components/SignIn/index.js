@@ -133,6 +133,8 @@ class SignInFacebookBase extends Component {
   }
 
   onSubmit = event => {
+
+    event.preventDefault();
     this.props.firebase
       .doSignInWithFacebook()
       .then(socialAuthUser => {
@@ -162,13 +164,28 @@ class SignInFacebookBase extends Component {
       }).then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.TRIPS);
+        //window.location.reload();
       })
       .catch(error => {
         this.setState({ error });
       });
 
-    event.preventDefault();
   };
+
+  componentDidMount() {
+    this.listener = this.props.firebase.onAuthUserListener(
+      authUser => {
+        if (authUser) {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.TRIPS);
+        }
+      },
+      () => {}
+    );
+  }
+  componentWillUnmount() {
+    this.listener();
+  }
 
   render() {
     const { error } = this.state;

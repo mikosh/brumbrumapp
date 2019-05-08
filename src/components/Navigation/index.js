@@ -178,7 +178,7 @@ class Navigation extends Component {
             </div>
             :
             <div className="container-fluid">
-              <a className="navbar-brand" onClick={this.closeNavbar} href="/"><img className="image-fluid logo" alt="logo" src={logo} /><span id="logo"><Translate id="brumbrum" /></span></a>
+              <Link className="navbar-brand" onClick={this.closeNavbar} to={ROUTES.TRIPS}><img className="image-fluid logo" alt="logo" src={logo} /><span id="logo"><Translate id="brumbrum" /></span></Link>
               <button className="navbar-toggler" type="button" onClick={this.toggleNavbar}>
                 <span className="navbar-toggler-icon"></span>
               </button>
