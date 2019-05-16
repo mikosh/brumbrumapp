@@ -183,7 +183,7 @@ const TripsList = ({ title, loading, trips, ratings}) => (
           <FacebookProvider appId="798061646982916">
             <Share href="http://www.facebook.com">
               {({ handleClick, loading }) => (
-                <button type="button" className="btn btn-sm btn-brum" disabled="loading" onClick={handleClick}>Share</button>
+                <button type="button" className="btn btn-sm btn-brum" onClick={handleClick}>Share</button>
               )}
             </Share>
           </FacebookProvider>
