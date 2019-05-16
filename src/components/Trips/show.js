@@ -238,7 +238,7 @@ class TripViewBase extends Component {
     return (
         <div className="container">
           <MetaTags>
-            <title>Brumbrum Ridesharing</title>
+            <title>Brumbrum Ridesharing - {`${trip.startCity} - ${trip.endCity}`}</title>
             <meta property="og:type" content="website" />
             <meta property="og:description" content={trip.description} />
             <meta property="og:title" content={`${trip.startCity} - ${trip.endCity}`} />

@@ -14,6 +14,7 @@ import nomusic from '../../assets/pref-music-no.png';
 import LocationSearchInput from './places';
 import { getLatLng } from 'react-places-autocomplete';
 import { FaCarSide } from "react-icons/fa";
+import MetaTags from 'react-meta-tags';
 
 // calculate air distance between two points
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -144,16 +145,25 @@ class TripsPage extends Component {
   render() {
     const { loading, searchActive, trips, searchTrips } = this.state;
     return (
-      <div className="container">
-        <div className="page">
-          <Search
-            searchActive={searchActive}
-            setStartLocation={this.setStartLocation}
-            setEndLocation={this.setEndLocation}
-            onSearchSubmit={this.onSearchSubmit}
-            onRemoveFilter={this.onRemoveFilter} />
-          {loading && <div>Loading ...</div>}
-          <TripsList loading={loading} trips={(searchActive)? searchTrips : trips} />
+      <div>
+        <MetaTags>
+          <title>Brumbrum Ridesharing -Active Trips</title>
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="BrumBrum Ridesharing - Active Trips" />
+          <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+          <meta property="og:image" content="logo1024.png" />
+        </MetaTags>
+        <div className="container">
+          <div className="page">
+            <Search
+              searchActive={searchActive}
+              setStartLocation={this.setStartLocation}
+              setEndLocation={this.setEndLocation}
+              onSearchSubmit={this.onSearchSubmit}
+              onRemoveFilter={this.onRemoveFilter} />
+            {loading && <div>Loading ...</div>}
+            <TripsList loading={loading} trips={(searchActive)? searchTrips : trips} />
+          </div>
         </div>
       </div>
     );

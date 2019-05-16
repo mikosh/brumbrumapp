@@ -13,6 +13,7 @@ import music from '../../assets/pref-music-yes.png';
 import nomusic from '../../assets/pref-music-no.png';
 import { FaCarSide, FaFacebook } from "react-icons/fa";
 import { FacebookProvider, Share } from 'react-facebook';
+import MetaTags from 'react-meta-tags';
 
 class MyTripsPage extends Component {
   constructor(props) {
@@ -128,12 +129,21 @@ class MyTripsPage extends Component {
   render() {
     const { loading, trips, pastTrips } = this.state;
     return (
+      <div>
+        <MetaTags>
+          <title>Brumbrum Ridesharing - My trips</title>
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="BrumBrum Ridesharing - My Trips" />
+          <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+          <meta property="og:image" content="logo1024.png" />
+        </MetaTags>
       <div className="container">
         <div className="page">
           <TripsList title="Upcoming trips" loading={loading} trips={trips} ratings={false} />
           <br/>
           <TripsList title="Past trips" loading={loading} trips={pastTrips} ratings={true} />
         </div>
+      </div>
       </div>
     );
   }
