@@ -9,6 +9,7 @@ import { Translate } from "react-localize-redux";
 import bgTranslations from "./bg.signup.json";
 import enTranslations from "./en.signup.json";
 import Footer from '../SignIn/footer';
+import MetaTags from "react-meta-tags";
 
 const SignUpPage = () => (
   <SignUpForm />
@@ -101,6 +102,13 @@ class SignUpFormBase extends Component {
 
     return (
       <div>
+      <MetaTags>
+        <title>Brumbrum Ridesharing - Sign Up</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="BrumBrum Ridesharing - Sign Up" />
+        <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+        <meta property="og:image" content="https://brumbrum.club/logo1024.png" />
+      </MetaTags>
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <br/>

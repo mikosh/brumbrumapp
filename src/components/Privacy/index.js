@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withLocalize, Translate } from "react-localize-redux";
 import bgTranslations from "./bg.privacy.json";
 import enTranslations from "./en.privacy.json";
+import MetaTags from "react-meta-tags";
 
 class PrivacyPage extends Component {
 
@@ -14,6 +15,13 @@ class PrivacyPage extends Component {
   render() {
     return (
     <div>
+      <MetaTags>
+        <title>Brumbrum Ridesharing - Privacy Policy</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+        <meta property="og:title" content="Brumbrum Ridesharing - Privacy Policy" />
+        <meta property="og:image" content="https://brumbrum.club/logo1024.png" />
+      </MetaTags>
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <br/>

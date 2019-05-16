@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withLocalize, Translate } from "react-localize-redux";
 import bgTranslations from "./bg.terms.json";
 import enTranslations from "./en.terms.json";
+import MetaTags from "react-meta-tags";
 
 class TermsPage extends Component {
 
@@ -14,6 +15,13 @@ class TermsPage extends Component {
   render () {
     return (
     <div>
+      <MetaTags>
+        <title>Brumbrum Ridesharing - Terms & Conditions</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+        <meta property="og:title" content="Brumbrum Ridesharing - Terms & Conditions" />
+        <meta property="og:image" content="https://brumbrum.club/logo1024.png" />
+      </MetaTags>
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <br/>
