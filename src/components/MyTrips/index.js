@@ -135,7 +135,7 @@ class MyTripsPage extends Component {
           <meta property="og:type" content="website" />
           <meta property="og:title" content="BrumBrum Ridesharing - My Trips" />
           <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
-          <meta property="og:image" content="logo1024.png" />
+          <meta property="og:image" content="https://brumbrum.club/logo1024.png" />
         </MetaTags>
       <div className="container">
         <div className="page">

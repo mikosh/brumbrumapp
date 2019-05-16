@@ -242,7 +242,7 @@ class TripViewBase extends Component {
             <meta property="og:type" content="website" />
             <meta property="og:description" content={trip.description} />
             <meta property="og:title" content={`${trip.startCity} - ${trip.endCity}`} />
-            <meta property="og:image" content="../../assets/images/logo1024.png" />
+            <meta property="og:image" content="https://brumbrum.club/logo1024.png" />
           </MetaTags>
         <div className="page">
           {loading && <div>Loading ...</div>}

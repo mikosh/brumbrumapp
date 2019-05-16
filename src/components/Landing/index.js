@@ -50,7 +50,7 @@ class Landing extends Component {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="BrumBrum Ridesharing - Mobile App" />
         <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
-        <meta property="og:image" content="../../assets/images/logo1024.png" />
+        <meta property="og:image" content="https://brumbrum.club/logo1024.png" />
       </MetaTags>
       <header className="bg-gradient" id="home">
         <div className="container mt-5 transparent">
