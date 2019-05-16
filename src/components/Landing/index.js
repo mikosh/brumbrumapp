@@ -20,6 +20,7 @@ import { withLocalize } from "react-localize-redux";
 import { Translate } from "react-localize-redux";
 import bgTranslations from "./bg.landing.json";
 import enTranslations from "./en.landing.json";
+import MetaTags from 'react-meta-tags';
 
 var settings = {
     dots: true,
@@ -44,6 +45,13 @@ class Landing extends Component {
   render() {
     return (
       <div>
+      <MetaTags>
+        <title>Brumbrum Ridesharing - Mobile App</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="BrumBrum Ridesharing - Mobile App" />
+        <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+        <meta property="og:image" content="../../assets/images/logo1024.png" />
+      </MetaTags>
       <header className="bg-gradient" id="home">
         <div className="container mt-5 transparent">
             <h1><Translate id="title" /></h1>

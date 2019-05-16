@@ -13,11 +13,17 @@ import * as ROUTES from '../../constants/routes';
 import logo from '../../assets/logo-sq.png';
 import fb_login from '../../assets/images/loginWithFB.png';
 import Footer from './footer';
-
-
+import MetaTags from 'react-meta-tags';
 
 const SignInPage = () => (
   <div>
+    <MetaTags>
+      <title>Brumbrum Ridesharing - Sign In</title>
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="BrumBrum Ridesharing - Sign In" />
+      <meta property="og:description" content="BrumBrum app connects drivers with free seats and people travelling the same way." />
+      <meta property="og:image" content="../../assets/images/logo1024.png" />
+    </MetaTags>
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <br/>

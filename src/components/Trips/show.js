@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Map from './MapComponent';
 import { FaCarSide } from "react-icons/fa";
+import MetaTags from 'react-meta-tags';
+
 
 const TripViewPage = () => (
   <TripView />
@@ -235,6 +237,13 @@ class TripViewBase extends Component {
     const phone = profileDriver && (profileDriver.phoneCode + profileDriver.phone)
     return (
         <div className="container">
+          <MetaTags>
+            <title>Brumbrum Ridesharing</title>
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content={trip.description} />
+            <meta property="og:title" content={`${trip.startCity} - ${trip.endCity}`} />
+            <meta property="og:image" content="../../assets/images/logo1024.png" />
+          </MetaTags>
         <div className="page">
           {loading && <div>Loading ...</div>}
           {!loading && trip &&
@@ -354,7 +363,7 @@ class TripViewBase extends Component {
                   <span><img src={trip.smokingAllowed? smoking : nosmoking} alt="Smoking" className="prefs" title={trip.smokingAllowed? "Smoking is allowed" : "No smoking, sorry."}/></span>
                   <span><img src={trip.petsAllowed? pets : nopets} alt="Pets" className="prefs" title={trip.petsAllowed? "Pets are allowed" : "No pets, sorry."}/></span>
                   <span><img src={trip.musicAllowed? music : nomusic} alt="Music" className="prefs" title={trip.musicAllowed? "Music in the car" : "NO music, sorry."}/></span>
-                  <span className="second-el" title="Driver's car" >{trip.car} {trip.model} </span><FaCarSide className="prefs" /> 
+                  <span className="second-el" title="Driver's car" >{trip.car} {trip.model} </span><FaCarSide className="prefs" />
                 </li>
                 <li className="list-group-item"><span className="list-span">Trip description: </span><span className="list-span font-weight-lighter">{trip.description}</span></li>
                 <li className="list-group-item">
