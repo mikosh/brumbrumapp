@@ -12,7 +12,7 @@ import nopets from '../../assets/pref-pet-no.png';
 import music from '../../assets/pref-music-yes.png';
 import nomusic from '../../assets/pref-music-no.png';
 import { FaCarSide } from "react-icons/fa";
-
+import { FacebookProvider, Share } from 'react-facebook';
 
 class MyTripsPage extends Component {
   constructor(props) {
@@ -179,7 +179,16 @@ const TripsList = ({ title, loading, trips, ratings}) => (
 
         </Link>
         <div className="rating-button">
-          {ratings && <div className="reservationButtons"><Link className="btn btn-warning btn-sm" to={`/reservations`} >Rate your trip</Link></div>}
+          <div className="reservationButtons">
+          <FacebookProvider appId="798061646982916">
+            <Share href="http://www.facebook.com">
+              {({ handleClick, loading }) => (
+                <button type="button" className="btn btn-sm btn-brum" disabled="loading" onClick={handleClick}>Share</button>
+              )}
+            </Share>
+          </FacebookProvider>
+          {ratings && <Link className="btn btn-warning btn-sm" to={`/reservations`} >Rate your trip</Link>}
+          </div>
         </div>
 
         </div>

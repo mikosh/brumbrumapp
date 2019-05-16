@@ -989,11 +989,11 @@ ul li.first{
   }
 
   button.btn-primary {
-    padding: 0 !important;
+    padding: 0.25rem 0.25rem !important;
     font-size: 0.775rem !important;
     font-weight: 400 !important;
     height: 2.5rem !important;
-    line-height: 2.5rem !important;
+    line-height: 1.9rem !important;
     border-radius: 0.2rem !important;
   }
 
