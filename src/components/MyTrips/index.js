@@ -11,7 +11,7 @@ import pets from '../../assets/pref-pet-yes.png';
 import nopets from '../../assets/pref-pet-no.png';
 import music from '../../assets/pref-music-yes.png';
 import nomusic from '../../assets/pref-music-no.png';
-import { FaCarSide } from "react-icons/fa";
+import { FaCarSide, FaFacebook } from "react-icons/fa";
 import { FacebookProvider, Share } from 'react-facebook';
 
 class MyTripsPage extends Component {
@@ -181,16 +181,16 @@ const TripsList = ({ title, loading, trips, ratings}) => (
         <div className="rating-button">
           <div className="reservationButtons">
           <FacebookProvider appId="798061646982916">
-            <Share href="http://www.facebook.com">
+            <Share href={`https://brumbrum.club/trips/${trip.id}`}>
               {({ handleClick, loading }) => (
-                <button type="button" className="btn btn-sm btn-brum" onClick={handleClick}>Share</button>
+                <button type="button" className="btn btn-sm btn-primary btn-brum" onClick={handleClick}><FaFacebook/> Share</button>
               )}
             </Share>
           </FacebookProvider>
+          <span> </span>
           {ratings && <Link className="btn btn-warning btn-sm" to={`/reservations`} >Rate your trip</Link>}
           </div>
         </div>
-
         </div>
       ))
       }
