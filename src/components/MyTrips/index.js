@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 import { Link } from 'react-router-dom';
 import { withAuthorization, withEmailVerification } from '../Session';
 import Moment from 'react-moment';
+import moment from 'moment';
 //import 'moment/locale/bg';
 import profile from '../../assets/profile.png';
 import smoking from '../../assets/pref-smoking-yes.png';
@@ -191,7 +192,9 @@ const TripsList = ({ title, loading, trips, ratings}) => (
         <div className="rating-button">
           <div className="reservationButtons">
           <FacebookProvider appId="798061646982916">
-            <Share href={`https://brumbrum.club/trips/${trip.id}`}>
+            <Share href="https://brumbrum.club"
+              hashtag="#brumbrumapp"
+              quote={`Пътувам от  ${trip.startCity} до ${trip.endCity} в ${moment(trip.leaveDate.toDate()).format("HH:mm, ddd, MMM Do")} \n\n https://brumbrum.club/trips/${trip.id}`}>
               {({ handleClick, loading }) => (
                 <button type="button" className="btn btn-sm btn-primary btn-brum" onClick={handleClick}><FaFacebook/> Share</button>
               )}
