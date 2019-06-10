@@ -68,7 +68,7 @@ class TripsPage extends Component {
       const tripsObject = doc.data();
       tripsObject.id = doc.id;
       tripsObject.leaveDateFormated = tripsObject.leaveDate.toDate().toISOString();
-      //tripsObject.returnDateFormated = tripsObject.returnDate.toDate().toISOString();
+      tripsObject.returnDateFormated = tripsObject.returnDate.toDate().toISOString();
       trips.push(tripsObject);
     });
     trips = trips.filter(this.filterByDate);
