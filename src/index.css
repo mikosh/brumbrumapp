@@ -938,6 +938,8 @@ ul li.first{
   display: none;
   margin-left: 5px;
 }
+
+
 @media screen and (max-width: 990px) {
   h3 {
     font-size: 1.2rem !important;
@@ -988,14 +990,6 @@ ul li.first{
     border-radius: 0.2rem !important;
   }
 
-  button.btn-primary {
-    padding: 0.25rem 0.25rem !important;
-    font-size: 0.775rem !important;
-    font-weight: 400 !important;
-    height: 2.5rem !important;
-    line-height: 1.9rem !important;
-    border-radius: 0.2rem !important;
-  }
 
   input.form-control, select.form-control {
     padding: 0.25rem 0.5rem !important;

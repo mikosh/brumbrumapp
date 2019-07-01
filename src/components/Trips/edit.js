@@ -7,6 +7,7 @@ import pets from '../../assets/pref-pet-yes.png';
 import nopets from '../../assets/pref-pet-no.png';
 import music from '../../assets/pref-music-yes.png';
 import nomusic from '../../assets/pref-music-no.png';
+import { FaUserFriends } from "react-icons/fa";
 
 import Flatpickr from 'react-flatpickr'
 
@@ -23,7 +24,8 @@ const INITIAL_STATE = {
   smokingAllowed: '',
   petsAllowed: '',
   musicAllowed: '',
-  description: ''
+  description: '',
+  backseat: ''
 };
 
 class EditTrip extends Component {
@@ -40,7 +42,7 @@ class EditTrip extends Component {
         const trip = doc.data();
         trip.id = doc.id;
         this.setState({trip_id: trip.id, startAddress: trip.startAddress, startCity: trip.startCity, endAddress: trip.endAddress, endCity: trip.endCity, leaveDate: trip.leaveDate, seats: trip.seats, price: trip.price, currency: trip.currency,
-        smokingAllowed: trip.smokingAllowed, petsAllowed: trip.petsAllowed, musicAllowed: trip.musicAllowed, description: trip.description});
+        smokingAllowed: trip.smokingAllowed, petsAllowed: trip.petsAllowed, musicAllowed: trip.musicAllowed, description: trip.description, backseat: trip.backseat});
       } else {
         console.log("No such document!");
       }
@@ -76,11 +78,11 @@ class EditTrip extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     //removed returnDate, roundTrip
-    const { trip_id, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed } = this.state;
+    const { trip_id, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed, backseat } = this.state;
 
     const updateRef = this.props.firebase.trip(trip_id);
     updateRef.update({
-      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed }).then((docRef) => {
+      leaveDate, seats, price, currency, description, smokingAllowed, petsAllowed, musicAllowed, backseat }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push("/trips/"+ trip_id)
     })
@@ -91,7 +93,7 @@ class EditTrip extends Component {
 
   render() {
 
-    const { startAddress, startCity, endAddress, endCity, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed } = this.state;
+    const { startAddress, startCity, endAddress, endCity, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed, backseat } = this.state;
 
     const isInvalid = leaveDate === '' || seats === '' || price === '' || description === '';
     return (
@@ -136,6 +138,17 @@ class EditTrip extends Component {
               <input type="checkbox" name="musicAllowed" onChange={this.onToggleChange} checked={musicAllowed} value={musicAllowed} />
               <img src={musicAllowed? music : nomusic} alt="Music" className="prefs" title={musicAllowed? "Music playing" : "No music, sorry."}/>
               </span>
+            </div>
+            <div className="form-group">
+              <div className="card alert-info">
+                  <div className="card-body">
+                    <input type="checkbox" name="backseat" onChange={this.onToggleChange} checked={backseat} value={backseat} />
+                    <FaUserFriends className="prefs"/>
+                    <stong> Max. 2 in the back seat</stong>
+                    <br/>
+                    <small>You guarantee that max. 2 people seat in the back (travellers prefer this).</small>
+                  </div>
+              </div>
             </div>
             <div className="form-group">
               <select name="seats" onChange={this.onChange} value={seats} className="form-control width40" >

@@ -10,6 +10,7 @@ import pets from '../../assets/pref-pet-yes.png';
 import nopets from '../../assets/pref-pet-no.png';
 import music from '../../assets/pref-music-yes.png';
 import nomusic from '../../assets/pref-music-no.png';
+import { FaUserFriends } from "react-icons/fa";
 
 import Flatpickr from 'react-flatpickr'
 
@@ -41,7 +42,8 @@ const INITIAL_STATE = {
   description: '',
   imageUrl: '',
   car: '',
-  model: ''
+  model: '',
+  backseat: false
 };
 
 class NewTrip extends Component {
@@ -169,7 +171,7 @@ class NewTrip extends Component {
     //removed returnDate, roundTrip
     const { startAddress, startCity, startLat, startLon, endAddress, endCity, endLat, endLon,
        smokingAllowed, petsAllowed, musicAllowed, deleted, driver, driverName, driverAge,
-       leaveDate, seats, price, currency, description, imageUrl, daily, returnDate, roundTrip, car, model } = this.state;
+       leaveDate, seats, price, currency, description, imageUrl, daily, returnDate, roundTrip, car, model, backseat } = this.state;
 
     this.ref.add({
       startAddress,
@@ -197,7 +199,8 @@ class NewTrip extends Component {
       imageUrl,
       daily,
       car,
-      model
+      model,
+      backseat
     }).then((docRef) => {
       this.setState({ ...INITIAL_STATE });
       this.props.history.push(ROUTES.TRIPS)
@@ -209,7 +212,7 @@ class NewTrip extends Component {
 
   render() {
     // removed: roundTrip, returnDate
-    const { startAddress, endAddress, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed } = this.state;
+    const { startAddress, endAddress, leaveDate, seats, price, currency, description, smokingAllowed, musicAllowed, petsAllowed, backseat } = this.state;
 
     const isInvalid = startAddress === '' || endAddress === '' || leaveDate === '' || seats === '' || price === '' || description === '';
 
@@ -256,6 +259,17 @@ class NewTrip extends Component {
                   <input type="checkbox" name="musicAllowed" onChange={this.onToggleChange} checked={musicAllowed} value={musicAllowed} />
                   <img src={musicAllowed? music : nomusic} alt="Music" className="prefs" title={musicAllowed? "Music playing" : "No music, sorry."}/>
                 </span>
+              </div>
+              <div className="form-group">
+                <div className="card alert-info">
+                    <div className="card-body">
+                      <input type="checkbox" name="backseat" onChange={this.onToggleChange} checked={backseat} value={backseat} />
+                      <FaUserFriends className="prefs"/>
+                      <stong> Max. 2 in the back seat</stong>
+                      <br/>
+                      <small>You guarantee that max. 2 people seat in the back (travellers prefer this).</small>
+                    </div>
+                </div>
               </div>
               <div className="form-group">
                 <select name="seats" onChange={this.onChange} value={seats} className="form-control width40" >

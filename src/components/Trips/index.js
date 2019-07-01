@@ -204,8 +204,16 @@ const TripsList = ({ loading, trips }) => (
         <Link to={`/trips/${trip.id}`} key={trip.id} className="list-group-item list-group-item-action flex-column align-items-start">
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1">
-            <img src={trip.imageUrl? trip.imageUrl : profile} alt="Avatar" className="avatar"/>
-            <span> {trip.driverName}, {trip.driverAge}</span></h5>
+            {(trip.roundTrip) ?
+              <small>
+                <Moment format="ddd, MMM Do, HH:mm">{trip.leaveDateFormated}</Moment>
+                <span> - </span>
+                <Moment format="ddd, MMM Do, HH:mm">{trip.returnDateFormated}</Moment>
+              </small>
+              :
+              <Moment format="ddd, MMM Do, HH:mm">{trip.leaveDateFormated}</Moment>
+            }
+            </h5>
             <span>{trip.car} {trip.model} <FaCarSide className="prefs" /></span>
             <h5>{trip.price} {trip.currency}</h5>
           </div>
@@ -215,15 +223,9 @@ const TripsList = ({ loading, trips }) => (
             <span><img src={trip.petsAllowed? pets : nopets} alt="Pets" className="prefs" title={trip.petsAllowed? "Pets are allowed" : "No pets, sorry."}/></span>
             <span><img src={trip.musicAllowed? music : nomusic} alt="Music" className="prefs" title={trip.musicAllowed? "Music in the car" : "NO music, sorry."}/></span>
           </p>
-          {(trip.roundTrip) ?
-            <small>
-              <Moment format="ddd, MMM Do, HH:mm">{trip.leaveDateFormated}</Moment>
-              <span> - </span>
-              <Moment format="ddd, MMM Do, HH:mm">{trip.returnDateFormated}</Moment>
-            </small>
-            :
-            <small><Moment format="ddd, MMM Do, HH:mm">{trip.leaveDateFormated}</Moment></small>
-          }
+          <img src={trip.imageUrl? trip.imageUrl : profile} alt="Avatar" className="avatar"/>
+          <span> {trip.driverName}, {trip.driverAge}</span>
+
         </Link>
       ))
       }

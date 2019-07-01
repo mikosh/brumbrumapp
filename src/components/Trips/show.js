@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Map from './MapComponent';
 import { FaCarSide } from "react-icons/fa";
+import { FaUserFriends } from "react-icons/fa";
 import MetaTags from 'react-meta-tags';
 
 
@@ -172,6 +173,7 @@ class TripViewBase extends Component {
       senderProfileId: profileVisitor.id,
       senderUrl: profileVisitor.url,
       tripId: trip.id,
+      backseat: trip.backseat,
       updated: new Date(),
       created: new Date(),
     }).then((docRef) => {
@@ -347,6 +349,7 @@ class TripViewBase extends Component {
                   </Link>
                 </li>
                 <li className="list-group-item"><span className="list-span">Price: </span><span className="list-span font-weight-bold">{trip.price} {trip.currency}</span></li>
+                {(trip.backseat) && <li className="list-group-item"><span className="list-span"><strong>Max. 2</strong> in the back seat guaranteed.</span></li>}
                 <li className="list-group-item">
                   <span className="list-span">Seats: </span><span className="list-span font-weight-bold">{trip.seats}</span>
                   <span className="list-span">
